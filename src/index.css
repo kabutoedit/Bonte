@@ -1,0 +1,16 @@
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #555;
+}
+
+.container {
+	width: 1280px;
+	margin: 0 auto;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
