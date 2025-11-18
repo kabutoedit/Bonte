@@ -1,7 +1,8 @@
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #555;
+	background-color: #fff;
+	color: #fff;
 }
 
 .container {
@@ -13,4 +14,8 @@ body {
 *::before,
 *::after {
 	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
 }

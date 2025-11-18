@@ -1,0 +1,139 @@
+.what-we-offer {
+	h2 {
+		font-family: 'Playfair Display', sans-serif;
+		font-weight: 700;
+		font-size: 45px;
+		line-height: 54px;
+		text-align: center;
+		color: #0c1e34;
+		margin: 0;
+		margin-top: 180px;
+	}
+
+	.medium-offer-block,
+	.little-offer-block,
+	.big-offer-block {
+		position: relative;
+		display: block;
+		border-radius: 10px;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		overflow: hidden;
+		text-decoration: none;
+
+		h5,
+		p {
+			position: relative;
+			z-index: 2;
+		}
+
+		.blur {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 50%;
+			background: linear-gradient(
+				to top,
+				rgba(0, 0, 0, 1) 0%,
+				rgba(0, 0, 0, 0.8) 50%,
+				rgba(0, 0, 0, 0) 100%
+			);
+			z-index: 1;
+			pointer-events: none;
+		}
+	}
+
+	.medium-offer-block {
+		width: 420px;
+		height: 396px;
+		padding: 0 22px 25px 23px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+
+		&.first {
+			background-image: url('/images/whatWeOffer/milkProducts.png');
+		}
+
+		&.second {
+			background-image: url('/images/whatWeOffer/sweets.png');
+		}
+	}
+
+	.little-offer-block {
+		width: 434px;
+		height: 218px;
+		padding: 0 15px 15px 15px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+
+		&.first {
+			background-image: url('/images/whatWeOffer/horeca.png');
+		}
+
+		&.second {
+			background-image: url('/images/whatWeOffer/foodСhemistry.png');
+		}
+	}
+
+	.big-offer-block {
+		width: 647px;
+		height: 396px;
+		padding: 0 25px 25px 25px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+
+		&.first {
+			background-image: url('/images/whatWeOffer/bakeryProducts.png');
+		}
+
+		&.second {
+			background-image: url('/images/whatWeOffer/specializedFats.png');
+		}
+	}
+
+	h5 {
+		font-family: 'Playfair Display', sans-serif;
+		font-weight: 700;
+		font-size: 28px;
+		line-height: 29.09px;
+		color: #fff;
+		margin: 0;
+		margin-bottom: 10px;
+	}
+
+	p {
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 24px;
+		color: #fff;
+		margin: 0;
+	}
+
+	.content {
+		margin-top: 45px;
+
+		.up-block {
+			display: flex;
+			gap: 10px;
+			height: 396px;
+
+			.two-little-blocks {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+		}
+
+		.down-block {
+			display: flex;
+			gap: 10px;
+			margin-top: 10px;
+		}
+	}
+}

@@ -14,18 +14,12 @@
 		color: #ffffff;
 		text-decoration: none;
 		transition: color 0.3s ease, font-size 0.3s ease, font-weight 0.3s ease;
+		cursor: pointer;
 
 		&:hover {
 			font-weight: 600;
 			font-size: 17px;
 			color: #f8d45f;
-		}
-
-		&.active {
-			color: #f8d45f;
-			font-size: 17px;
-
-			font-weight: 600;
 		}
 	}
 }
