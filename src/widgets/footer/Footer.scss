@@ -1,0 +1,100 @@
+.Footer {
+	margin-top: 140px;
+	height: 953px;
+	background-color: rgba(12, 30, 52, 1);
+	padding: 26px 30px 98px 30px;
+
+	.foot {
+		margin-top: 115px;
+		display: flex;
+
+		.logo {
+			margin-right: 116px;
+
+			svg {
+				margin: 0;
+				margin-bottom: 31px;
+			}
+
+			p {
+				margin: 0;
+				font-family: 'Inter', sans-serif;
+				font-weight: 400;
+				font-size: 18px;
+				line-height: 26px;
+			}
+		}
+
+		.nav {
+			margin-right: 158px;
+			height: 190px;
+
+			.navigation {
+				align-items: flex-start;
+				display: flex;
+				flex-direction: column;
+				gap: 39px;
+
+				a {
+					font-family: 'Inter', sans-serif;
+					font-weight: 500;
+					font-size: 16px;
+					line-height: 18px;
+				}
+			}
+		}
+
+		.connect {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+
+			height: 190px;
+
+			margin-right: 99px;
+
+			.numbers {
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+			}
+		}
+
+		.adressAndRegime {
+			display: flex;
+			flex-direction: column;
+			gap: 37px;
+
+			.regime {
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+			}
+
+			.adress {
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+			}
+		}
+	}
+
+	h6 {
+		margin: 0;
+		margin-top: -10px;
+		// margin-bottom: 31px;
+		color: rgba(248, 212, 95, 1);
+		font-family: 'Playfair Display', sans-serif;
+		font-weight: 400;
+		font-size: 24px;
+		line-height: 32px;
+	}
+
+	p {
+		margin: 0;
+		font-family: 'Inter', sans-serif;
+		font-weight: 300;
+		font-size: 14px;
+		line-height: 20px;
+	}
+}

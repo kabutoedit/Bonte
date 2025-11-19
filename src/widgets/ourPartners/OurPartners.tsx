@@ -13,7 +13,7 @@ const partners: Partner[] = [
 	{
 		id: 1,
 		name: 'Kulikov',
-		logo: '/images/ourPartners/kulikov.png',
+		logo: '/images/ourPartners/kulikov.jpg',
 		hasBorderRadius: false,
 		width: 332,
 		height: 91,
@@ -21,7 +21,7 @@ const partners: Partner[] = [
 	{
 		id: 2,
 		name: 'Wildberries',
-		logo: '/images/ourPartners/wb.png',
+		logo: '/images/ourPartners/wb.jpg',
 		hasBorderRadius: true,
 		width: 240,
 		height: 113,
@@ -29,7 +29,7 @@ const partners: Partner[] = [
 	{
 		id: 3,
 		name: 'Dostor',
-		logo: '/images/ourPartners/dostor.png',
+		logo: '/images/ourPartners/dostor.jpg',
 		hasBorderRadius: true,
 		width: 129,
 		height: 129,
@@ -45,7 +45,7 @@ const partners: Partner[] = [
 	{
 		id: 5,
 		name: 'Yandex Go',
-		logo: '/images/ourPartners/yandex.png',
+		logo: '/images/ourPartners/yandex.jpg',
 		hasBorderRadius: true,
 		width: 284,
 		height: 122,

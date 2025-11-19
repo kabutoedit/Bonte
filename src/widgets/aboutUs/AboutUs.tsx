@@ -26,7 +26,7 @@ export default function AboutUs() {
 					<Button>СВЯЗАТЬСЯ С НАМИ</Button>
 				</div>
 				<div className='img'>
-					<img src='/images/aboutUs.png' alt='О нас' />
+					<img src='/images/aboutUs.jpg' alt='О нас' />
 				</div>
 				<div className='yellowBorder'></div>
 				<div className='grayBorder'></div>

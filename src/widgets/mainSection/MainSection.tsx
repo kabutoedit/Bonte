@@ -17,37 +17,37 @@ export default function MainSection() {
 		{
 			id: 1,
 			title: 'Кондитерские изделия',
-			image: '/images/confectionery.png',
+			image: '/images/slider/confectionery.jpg',
 			link: '/confectionery',
 		},
 		{
 			id: 2,
 			title: 'Молочная продукция',
-			image: '/images/milkProducts.png',
+			image: '/images/slider/milkProducts.jpg',
 			link: '/milk-products',
 		},
 		{
 			id: 3,
 			title: 'Horeca',
-			image: '/images/horeca.png',
+			image: '/images/slider/horeca.jpg',
 			link: '/horeca',
 		},
 		{
 			id: 4,
 			title: 'Пищевая химия',
-			image: '/images/foodСhemistry.png',
+			image: '/images/slider/foodChemistry.jpg',
 			link: '/food-chemistry',
 		},
 		{
 			id: 5,
 			title: 'Хлебобулочные продукты',
-			image: '/images/bakeryProducts.png',
+			image: '/images/slider/bakeryProducts.jpg',
 			link: '/bakery-products',
 		},
 		{
 			id: 6,
 			title: 'Специализированные жиры',
-			image: '/images/specializedFats.png',
+			image: '/images/slider/specializedFats.jpg',
 			link: '/specialized-fats',
 		},
 	]
