@@ -7,9 +7,10 @@
 	z-index: 1000;
 
 	&__main {
-		background: transparent;
 		backdrop-filter: blur(140.8px);
 		box-shadow: 0px 0px 68px 0px rgba(255, 255, 255, 0.05) inset;
+		background: rgba(210, 210, 210, 0.3);
+
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -25,4 +26,12 @@
 		align-items: center;
 		text-decoration: none;
 	}
+}
+
+.header--white .navigation__link {
+	color: white;
+}
+
+.header--blue .navigation__link {
+	color: #0c1e34;
 }

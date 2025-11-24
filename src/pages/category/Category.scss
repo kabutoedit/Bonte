@@ -1,0 +1,23 @@
+.categoryPage {
+	display: flex;
+
+	.subCategory {
+		min-height: 100vh;
+		height: 100%;
+		margin-top: 161px;
+
+		.cardContainer {
+			display: flex;
+			gap: 40px 29px;
+			flex-wrap: wrap;
+		}
+
+		Button {
+			width: 420px;
+			height: 59px;
+			margin: 0 auto;
+			margin-top: 50px;
+			display: block;
+		}
+	}
+}

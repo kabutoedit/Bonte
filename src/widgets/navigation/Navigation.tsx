@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom'
 import './Navigation.scss'
 
 const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -16,36 +17,35 @@ const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
 }
 
 export default function Navigation() {
+	const location = useLocation()
+	const onMainPage = location.pathname === '/'
+
+	const link = (id: string, label: string) => {
+		if (onMainPage) {
+			return (
+				<a
+					href={`#${id}`}
+					className='navigation__link'
+					onClick={e => handleScroll(e, `#${id}`)}
+				>
+					{label}
+				</a>
+			)
+		}
+
+		return (
+			<a href={`/#${id}`} className='navigation__link'>
+				{label}
+			</a>
+		)
+	}
+
 	return (
 		<nav className='navigation'>
-			<a
-				href='#main'
-				className='navigation__link'
-				onClick={e => handleScroll(e, '#main')}
-			>
-				ГЛАВНАЯ
-			</a>
-			<a
-				href='#catalog'
-				className='navigation__link'
-				onClick={e => handleScroll(e, '#catalog')}
-			>
-				КАТАЛОГ
-			</a>
-			<a
-				href='#about'
-				className='navigation__link'
-				onClick={e => handleScroll(e, '#about')}
-			>
-				О НАС
-			</a>
-			<a
-				href='#contacts'
-				className='navigation__link'
-				onClick={e => handleScroll(e, '#contacts')}
-			>
-				КОНТАКТЫ
-			</a>
+			{link('main', 'ГЛАВНАЯ')}
+			{link('catalog', 'КАТАЛОГ')}
+			{link('about', 'О НАС')}
+			{link('contacts', 'КОНТАКТЫ')}
 		</nav>
 	)
 }

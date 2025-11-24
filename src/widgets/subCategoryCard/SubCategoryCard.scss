@@ -1,0 +1,75 @@
+.SubCategoryCard {
+	width: 320px;
+	border-radius: 7px;
+
+	border: 0.53px solid rgba(217, 217, 217, 1);
+	box-shadow: 2.11px 3.17px 5.29px 0px rgba(0, 0, 0, 0.1);
+
+	padding: 11px 11px 15px 11px;
+
+	.img {
+		height: 171px;
+		border-radius: 8px;
+
+		img {
+			height: 100%;
+			width: 100%;
+			object-fit: cover;
+		}
+	}
+
+	h3 {
+		margin: 0;
+		margin-top: 7px;
+		margin-bottom: 9px;
+		font-family: 'Playfair Display', sans-serif;
+		font-weight: 600;
+		font-size: 21px;
+		line-height: 30.76px;
+		color: black;
+	}
+
+	span {
+		display: block;
+		width: 290px;
+		height: 0;
+		border: 0.15px solid rgba(12, 30, 52, 1);
+		margin-bottom: 9px;
+	}
+
+	.btns {
+		display: flex;
+		gap: 8px;
+
+		.available,
+		.notAvailable,
+		.toOrder {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			width: 65px;
+			height: 22px;
+			border-radius: 3px;
+			background: rgba(219, 252, 231, 1);
+			color: black;
+
+			font-family: 'Inter', sans-serif;
+			font-weight: 600;
+			font-size: 8.46px;
+			line-height: 30.76px;
+		}
+
+		.available {
+			background: rgba(219, 252, 231, 1);
+		}
+
+		.notAvailable {
+			background: rgba(212, 212, 212, 1);
+		}
+
+		.toOrder {
+			background: rgba(254, 249, 194, 1);
+		}
+	}
+}

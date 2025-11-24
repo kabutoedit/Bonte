@@ -3,9 +3,9 @@ import Navigation from '../navigation/Navigation'
 import Button from '../../shared/ui/Button/Button'
 import './Header.scss'
 
-export default function Header() {
+export default function Header({ isHome }: { isHome: boolean }) {
 	return (
-		<header className='header'>
+		<header className={isHome ? 'header header--white' : 'header header--blue'}>
 			<div className='container'>
 				<div className='header__main'>
 					<Link to='/' className='header__logo'>

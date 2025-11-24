@@ -7,7 +7,6 @@ interface SliderItem {
 	id: number
 	title: string
 	image: string
-	link: string
 }
 
 const SLIDER_INTERVAL = 2000
@@ -18,37 +17,31 @@ export default function MainSection() {
 			id: 1,
 			title: 'Кондитерские изделия',
 			image: '/images/slider/confectionery.jpg',
-			link: '/confectionery',
 		},
 		{
 			id: 2,
 			title: 'Молочная продукция',
 			image: '/images/slider/milkProducts.jpg',
-			link: '/milk-products',
 		},
 		{
 			id: 3,
 			title: 'Horeca',
 			image: '/images/slider/horeca.jpg',
-			link: '/horeca',
 		},
 		{
 			id: 4,
 			title: 'Пищевая химия',
 			image: '/images/slider/foodChemistry.jpg',
-			link: '/food-chemistry',
 		},
 		{
 			id: 5,
 			title: 'Хлебобулочные продукты',
 			image: '/images/slider/bakeryProducts.jpg',
-			link: '/bakery-products',
 		},
 		{
 			id: 6,
 			title: 'Специализированные жиры',
 			image: '/images/slider/specializedFats.jpg',
-			link: '/specialized-fats',
 		},
 	]
 
@@ -88,7 +81,7 @@ export default function MainSection() {
 							<img src={currentItem.image} alt={currentItem.title} />
 						</div>
 						<h4>{currentItem.title}</h4>
-						<Link to={currentItem.link}>
+						<Link to={'/category/:categoryId'}>
 							<Button>Подробнее</Button>
 						</Link>
 					</div>
