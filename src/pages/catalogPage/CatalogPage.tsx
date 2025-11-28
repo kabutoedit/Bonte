@@ -4,18 +4,11 @@ import axios from 'axios'
 import Category from '../category/Category'
 import SubCategory from '../products/Products'
 import ProductsPage from '../subCategory./SubCategory'
-
-interface Category {
-	id: number
-	title: string
-	slug: string
-	parent: number | null
-	description?: string
-}
+import { ProductsType } from '../../types'
 
 interface Data {
-	children: any[]
-	category: Category
+	children: ProductsType[]
+	category: ProductsType[]
 }
 
 export default function CatalogPage() {
@@ -45,14 +38,14 @@ export default function CatalogPage() {
 
 	if (loading) return <>Загрузка...</>
 
-	if (!slug) {
-		return <Category categories={data || []} />
-	}
+	// if (!slug) {
+	// 	return <Category categories={data || []} />
+	// }
 
-	if (data && data.category && data.category.parent !== null)
+	if (data && data.category && (data.category as any).parent !== null)
 		return <SubCategory products={data.children} />
 
-	if (data && data.category && data.category.parent === null)
+	if (data && data.category && (data.category as any).parent === null)
 		return <ProductsPage subCategories={data.children} />
 
 	return null

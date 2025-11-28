@@ -46,6 +46,18 @@ export default function MainSection() {
 		fetchData()
 	}, [])
 
+	if (!sliderData.length) {
+		return (
+			<section id='main' className='main-section'>
+				<div className='container'>
+					<div style={{ margin: '0 auto' }} className='no-data'>
+						Нет данных для отображения
+					</div>
+				</div>
+			</section>
+		)
+	}
+
 	const currentItem = sliderData[currentSlide]
 
 	return (

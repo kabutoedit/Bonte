@@ -6,7 +6,7 @@ export interface ProductsType {
 	image: string
 	in_stock: boolean
 	on_order: boolean
-	parent: number
+	parent: number | null
 }
 
 export interface ContactType {

@@ -3,25 +3,15 @@ import SubCategoryCard from '../../widgets/subCategoryCard/SubCategoryCard'
 import Button from '../../shared/ui/Button'
 import './SubCategory.scss'
 import { NavLink } from 'react-router-dom'
-
-interface SubCategoryType {
-	id: number
-	title: string
-	slug: string
-	description?: string
-	image?: string
-	in_stock: boolean
-	on_order: boolean
-	parent: number
-}
+import { ProductsType } from '../../types'
 
 type SubCategoryProps = {
-	subCategories: SubCategoryType[]
+	subCategories: ProductsType[]
 }
 
 export default function SubCategory({ subCategories }: SubCategoryProps) {
 	return (
-		<div className='categoryPage'>
+		<div className='subCategoryBlock'>
 			<LeftNavbar />
 
 			<div className='subCategory'>
@@ -32,7 +22,7 @@ export default function SubCategory({ subCategories }: SubCategoryProps) {
 							style={{ cursor: 'pointer', color: 'rgba(12, 30, 52, 1)' }}
 							key={subCategory.id}
 						>
-							<SubCategoryCard data={subCategory} />
+							<SubCategoryCard subCategories={subCategory} />
 						</NavLink>
 					))}
 				</div>

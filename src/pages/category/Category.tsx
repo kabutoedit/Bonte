@@ -12,7 +12,7 @@ export default function Category({ categories }: CategoriesProps) {
 	console.log(categories)
 
 	return (
-		<div className='categoryPage'>
+		<div className='subCategoryBlock'>
 			<LeftNavbar />
 
 			<div className='subCategory'>
