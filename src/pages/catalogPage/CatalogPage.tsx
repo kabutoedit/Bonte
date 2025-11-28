@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Category from '../category/Category'
+// import Category from '../category/Category'
 import SubCategory from '../products/Products'
 import ProductsPage from '../subCategory./SubCategory'
 import { ProductsType } from '../../types'
