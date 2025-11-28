@@ -1,66 +1,37 @@
+import { useEffect, useState } from 'react'
 import './QualityPartners.scss'
+import axios from 'axios'
 
 interface Partner {
 	id: number
+	url: string
 	name: string
 	logo: string
-	width: number
-	height: number
 }
 
-const partners: Partner[] = [
-	{
-		id: 1,
-		name: 'White River',
-		logo: '/images/qualityPartners/whiteRiver.png',
-		width: 157,
-		height: 157,
-	},
-	{
-		id: 2,
-		name: 'Besh',
-		logo: '/images/qualityPartners/besh.png',
-		width: 170,
-		height: 87,
-	},
-	{
-		id: 3,
-		name: 'Salih',
-		logo: '/images/qualityPartners/salih.png',
-		width: 239,
-		height: 113,
-	},
-	{
-		id: 4,
-		name: 'Umai Group',
-		logo: '/images/qualityPartners/umaiGroup.png',
-		width: 239,
-		height: 86,
-	},
-	{
-		id: 5,
-		name: 'Riha',
-		logo: '/images/qualityPartners/riha.jpg',
-		width: 267,
-		height: 66,
-	},
-	{
-		id: 6,
-		name: 'Ice Qween',
-		logo: '/images/qualityPartners/iceQween.jpg',
-		width: 205,
-		height: 136,
-	},
-	{
-		id: 7,
-		name: 'Jety Baatyr',
-		logo: '/images/qualityPartners/jetyBaatyr.jpg',
-		width: 233,
-		height: 189,
-	},
-]
-
 export default function QualityPartners() {
+	const [partners, setPartners] = useState<Partner[]>([])
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const response = await axios.get(
+					'https://back-bonte.anti-flow.com/api/v1/partner/carousel/'
+				)
+
+				console.log(response.data)
+				setPartners(response.data)
+			} catch (error) {
+				console.error('Ошибка при получении данных:', error)
+			} finally {
+				setLoading(false)
+			}
+		}
+
+		fetchData()
+	}, [])
+
 	return (
 		<section className='QualityPartners'>
 			<div className='container'>
@@ -68,30 +39,12 @@ export default function QualityPartners() {
 				<div className='partners-track'>
 					{partners.map(partner => (
 						<div key={partner.id} className='partner-logo'>
-							<img
-								src={partner.logo}
-								alt={partner.name}
-								width={partner.width}
-								height={partner.height}
-								style={{
-									width: `${partner.width}px`,
-									height: `${partner.height}px`,
-								}}
-							/>
+							<img src={partner.logo} alt={partner.name} />
 						</div>
 					))}
 					{partners.map(partner => (
 						<div key={`duplicate-${partner.id}`} className='partner-logo'>
-							<img
-								src={partner.logo}
-								alt={partner.name}
-								width={partner.width}
-								height={partner.height}
-								style={{
-									width: `${partner.width}px`,
-									height: `${partner.height}px`,
-								}}
-							/>
+							<img src={partner.logo} alt={partner.name} />
 						</div>
 					))}
 				</div>

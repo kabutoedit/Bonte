@@ -1,63 +1,23 @@
 import './SubCategoryCard.scss'
 
-interface SubCategory {
-	id: number
-	name: string
-	image: string
-	available: boolean
-}
-
-export default function SubCategoryCard() {
-	const subCategories = [
-		{
-			id: 101,
-			name: 'Заквасочные культуры',
-			image: '/public/images/aboutUs.jpg',
-			available: false,
-		},
-		{
-			id: 102,
-			name: 'Заквасочные культуры',
-			image: '/public/images/aboutUs.jpg',
-			available: false,
-		},
-		{
-			id: 103,
-			name: 'Заквасочные культуры',
-			image: '/public/images/aboutUs.jpg',
-			available: false,
-		},
-		{
-			id: 104,
-			name: 'Заквасочные культуры',
-			image: '/public/images/aboutUs.jpg',
-			available: false,
-		},
-		{
-			id: 105,
-			name: 'Заквасочные культуры',
-			image: '/public/images/aboutUs.jpg',
-			available: false,
-		},
-	]
-
+export default function SubCategoryCard({ data }) {
 	return (
-		<>
-			{subCategories.map(category => (
-				<div className='SubCategoryCard' key={category.id}>
-					<div className='img'>
-						<img src={category.image} alt={category.name} />
-					</div>
-					<h3>{category.name}</h3>
-					<span></span>
-					<div className='btns'>
-						<div className={category.available ? 'available' : 'notAvailable'}>
-							{category.available ? 'В наличии' : 'Не в наличии'}
-						</div>
-						<div className='toOrder'>На заказ</div>
-					</div>
+		<div className='SubCategoryCard'>
+			<div className='img'>
+				<img src={data.image} alt={data.title} />
+			</div>
+
+			<h3>{data.title}</h3>
+
+			<div className='btns'>
+				<div className={data.in_stock ? 'available' : 'notAvailable'}>
+					{data.in_stock ? 'В наличии' : 'Не в наличии'}
 				</div>
-			))}
-		</>
+
+				<div className={data.on_order ? 'toOrder' : 'notAvailable'}>
+					{data.on_order ? 'В наличии' : 'Не доступно'}
+				</div>
+			</div>
+		</div>
 	)
 }

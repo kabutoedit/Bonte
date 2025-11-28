@@ -3,14 +3,34 @@ import LeftNavbar from '../../widgets/leftNavBar/LeftNavBar'
 import SubCategoryCard from '../../widgets/subCategoryCard/SubCategoryCard'
 import './Category.scss'
 
-export default function Category() {
+// export default function Category() {
+// 	return (
+// 		<div className='categoryPage'>
+// 			<LeftNavbar />
+// 			<div className='subCategory'>
+// 				<div className='cardContainer'>
+// 					<SubCategoryCard />
+// 				</div>
+// 				<Button>Заказать по WhatsApp</Button>
+// 			</div>
+// 		</div>
+// 	)
+// }
+
+export default function Category({ categories }) {
+	console.log('category page')
+
 	return (
 		<div className='categoryPage'>
 			<LeftNavbar />
+
 			<div className='subCategory'>
 				<div className='cardContainer'>
-					<SubCategoryCard />
+					{categories.map(cat => (
+						<SubCategoryCard key={cat.id} data={cat} />
+					))}
 				</div>
+
 				<Button>Заказать по WhatsApp</Button>
 			</div>
 		</div>

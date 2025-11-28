@@ -2,10 +2,57 @@ import Map from '../map/Map'
 import Navigation from '../navigation/Navigation'
 import './Footer.scss'
 
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+
+interface ContactItem {
+	id: number
+	title: string
+}
+
 export default function Footer() {
+	const [loading, setLoading] = useState<boolean>(true)
+	const [workTime, setWorkTime] = useState<string>('')
+	const [phoneNumber, setPhoneNumber] = useState<ContactItem[]>([])
+	const [email, setEmail] = useState<ContactItem[]>([])
+
+	const [latitude, setLatitude] = useState<number | null>(null)
+	const [longitude, setLongitude] = useState<number | null>(null)
+	const [address, setAddress] = useState<string>('')
+
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const response = await axios.get(
+					'https://back-bonte.anti-flow.com/api/v1/landing/info/'
+				)
+
+				setWorkTime(response.data.WorkTime || '')
+				setEmail(response.data.email_contact || [])
+				setPhoneNumber(response.data.phone_contact || [])
+
+				setLatitude(response.data.address.latitude || null)
+				setLongitude(response.data.address.longitude || null)
+				setAddress(response.data.address.title || 'Адрес не указан')
+			} catch (error) {
+				console.error('Ошибка при получении данных:', error)
+			} finally {
+				setLoading(false)
+			}
+		}
+
+		fetchData()
+	}, [])
+
 	return (
 		<footer id='contacts' className='Footer'>
-			<Map />
+			<Map
+				latitude={latitude}
+				longitude={longitude}
+				address={address}
+				email={email}
+				phoneNumbers={phoneNumber}
+			/>
 
 			<div className='container'>
 				<div className='foot'>
@@ -22,7 +69,6 @@ export default function Footer() {
 								fill='#F8D45F'
 							/>
 						</svg>
-
 						<p>
 							ПОСТАВКА ПИЩЕВОГО СЫРЬЯ <br /> ДЛЯ ПРОИЗВОДИТЕЛЕЙ
 						</p>
@@ -32,24 +78,24 @@ export default function Footer() {
 					</div>
 					<div className='connect'>
 						<h6>СВЯЗАТЬСЯ С НАМИ</h6>
-
 						<div className='numbers'>
-							<p>Отдел закупа: +996 999 22 33 95</p>
-							<p>Отдел продаж: +996 999 22 33 95 </p>
-							<p>Бухгалтерия: +996 555 966 034</p>
+							{phoneNumber.map(item => {
+								return <p key={item.id}>{item.title}</p>
+							})}
 						</div>
-
-						<p>Почта: bonte.m.a8.@gmail.com</p>
+						{email.map(item => (
+							<p key={item.id}>Почта: {item.email}</p>
+						))}
 					</div>
 
 					<div className='adressAndRegime'>
 						<div className='regime'>
 							<h6>РЕЖИМ РАБОТЫ</h6>
-							<p>C 9:00 ДО 18:00</p>
+							<p>{workTime}</p>
 						</div>
 						<div className='adress'>
 							<h6>АДРЕС</h6>
-							<p>Г.Бишкек Лермонтова 1Б/4.</p>
+							<p>{address}</p>
 						</div>
 					</div>
 				</div>

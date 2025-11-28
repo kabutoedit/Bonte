@@ -1,0 +1,61 @@
+.Catalog404 {
+	width: 100vw;
+	background-color: rgba(254, 246, 233, 1);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.text {
+		width: 839px;
+		height: 258px;
+		margin: 0 auto;
+		margin-top: 321px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		z-index: 2;
+
+		h3 {
+			font-family: 'Inter', sans-serif;
+			font-weight: 500;
+			font-size: 45px;
+			line-height: 54px;
+			letter-spacing: 1%;
+			text-align: center;
+			color: rgba(12, 30, 52, 1);
+			margin: 0;
+			margin-bottom: 15px;
+		}
+
+		p {
+			font-family: 'Inter', sans-serif;
+			font-weight: 400;
+			font-size: 30px;
+			line-height: 44px;
+			letter-spacing: -1%;
+			text-align: center;
+			color: rgba(12, 30, 52, 1);
+
+			margin: 0;
+			margin-bottom: 33px;
+		}
+
+		Button {
+			width: 295px;
+			height: 58px;
+		}
+	}
+
+	.img {
+		background-image: url('/public/images/catalog404.webp');
+		background-size: cover;
+		width: 935px;
+		height: 454px;
+		opacity: 0.56;
+
+		margin-bottom: 86px;
+
+		position: relative;
+		top: -75px;
+	}
+}

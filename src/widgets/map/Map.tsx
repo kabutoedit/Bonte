@@ -1,33 +1,84 @@
 import './Map.scss'
 
-export default function Map() {
+interface ContactItem {
+	id: number
+	title: string
+}
+
+interface MapProps {
+	latitude: number | null
+	longitude: number | null
+	address: string
+	phoneNumbers: Array<ContactItem>
+	email: Array<ContactItem>
+}
+
+export default function Map({
+	latitude,
+	longitude,
+	address,
+	email,
+	phoneNumbers,
+}: MapProps) {
+	if (latitude === null || longitude === null) {
+		return (
+			<div className='map'>
+				<p>Карта недоступна, нет координат.</p>
+				<div className='info'>
+					<div className='adress'>
+						<h4>Адрес</h4>
+						<p>{address}</p>
+					</div>
+					<div className='mail'>
+						<h4>Почта</h4>
+						{email.map(item => {
+							return <p key={item.id}>{item.email}</p>
+						})}
+					</div>
+					<div className='phone'>
+						<h4>Телефон</h4>
+
+						{phoneNumbers.map(item => {
+							return <p key={item.id}>{item.title}</p>
+						})}
+					</div>
+				</div>
+			</div>
+		)
+	}
+
+	const mapUrl = `https://maps.google.com/maps?q=${latitude},${longitude}&z=15&output=embed`
+
 	return (
 		<div className='map'>
 			<iframe
-				src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3896.382824680978!2d74.65528653958557!3d42.878293406000424!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389eb710ac1f16a9%3A0x330cb5323235fa79!2zNCwgMSDRg9C7LiDQm9C10YDQvNC-0L3RgtC-0LLQsCwg0JHQuNGI0LrQtdC6!5e0!3m2!1sru!2skg!4v1763547034097!5m2!1sru!2skg'
+				src={mapUrl}
 				width='600'
 				height='450'
+				style={{ border: 0 }}
+				allowFullScreen={true}
 				loading='lazy'
+				referrerPolicy='no-referrer-when-downgrade'
+				title='Google Map Location'
 			></iframe>
 
 			<div className='info'>
 				<div className='adress'>
 					<h4>Адрес</h4>
-					<p>
-						Кыргызская Республика г.Бишкек <br /> Лермонтова 1Б/4.
-					</p>
+					<p>{address}</p>
 				</div>
 				<div className='mail'>
 					<h4>Почта</h4>
-					<p>bonte.m.a8.@gmail.com</p>
+					{email.map(item => {
+						return <p key={item.id}>{item.email}</p>
+					})}
 				</div>
 				<div className='phone'>
 					<h4>Телефон</h4>
-					<p>
-						Отдел закупа: +996 999 22 33 95 <br /> Отдел продаж: +996 999 22 33
-						95 <br />
-						Бухгалтерия: +996 555 966 034
-					</p>
+
+					{phoneNumbers.map(item => {
+						return <p key={item.id}>{item.title}</p>
+					})}
 				</div>
 			</div>
 		</div>

@@ -1,33 +1,68 @@
+// import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+// import Home from './pages/home/Home'
+// import CatalogPage from './pages/catalogPage/CatalogPage'
+// import Header from './widgets/header/Header'
+// import Page404 from './pages/page404/Page404'
+
+// export default function App() {
+// 	function HeaderWrapper() {
+// 		const location = useLocation()
+
+// 		if (location.pathname === '*') {
+// 			return null
+// 		}
+// 		return <Header isHome={location.pathname === '/'} />
+// 	}
+
+// 	return (
+// 		<BrowserRouter>
+// 			<HeaderWrapper />
+// 			<Routes>
+// 				<Route path='/' element={<Home />} />
+// 				<Route path='/catalog/' element={<CatalogPage />} />
+// 				<Route path='/catalog/:slug' element={<CatalogPage />} />
+// 				<Route path='*' element={<Page404 />} />
+// 			</Routes>
+// 		</BrowserRouter>
+// 	)
+// }
+
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import Header from './widgets/header/Header'
 import Home from './pages/home/Home'
-import Category from './pages/category/Category'
-import SubCategory from './pages/subCategory/SubCategory'
-import ProductPage from './pages/product/Product'
+import CatalogPage from './pages/catalogPage/CatalogPage'
+import Header from './widgets/header/Header'
+import Page404 from './pages/page404/Page404'
 
-function HeaderWrapper() {
-	const location = useLocation()
-	return <Header isHome={location.pathname === '/'} />
-}
+export default function App() {
+	function HeaderWrapper() {
+		const location = useLocation()
 
-function App() {
+		const existingRoutes = ['/', '/catalog/', '/catalog/:slug']
+
+		const isExistingRoute = existingRoutes.some(route => {
+			if (route.includes(':')) {
+				const basePath = route.split('/:')[0]
+				return location.pathname.startsWith(basePath)
+			}
+			return route === location.pathname
+		})
+
+		if (!isExistingRoute) {
+			return null
+		}
+
+		return <Header isHome={location.pathname === '/'} />
+	}
+
 	return (
 		<BrowserRouter>
 			<HeaderWrapper />
 			<Routes>
 				<Route path='/' element={<Home />} />
-				<Route path='/category/:categoryId' element={<Category />} />
-				<Route
-					path='/category/:categoryId/sub/:subId'
-					element={<SubCategory />}
-				/>
-				<Route
-					path='/category/:categoryId/sub/:subId/product/:productId'
-					element={<ProductPage />}
-				/>
+				<Route path='/catalog/' element={<CatalogPage />} />
+				<Route path='/catalog/:slug' element={<CatalogPage />} />
+				<Route path='*' element={<Page404 />} />
 			</Routes>
 		</BrowserRouter>
 	)
 }
-
-export default App

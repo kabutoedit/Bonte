@@ -1,0 +1,56 @@
+.Page404 {
+	background-color: rgba(254, 246, 233, 1);
+	height: 100vh;
+	color: rgba(12, 30, 52, 1);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+
+	h2 {
+		z-index: 1;
+		font-family: 'Playfair Display', sans-serif;
+		font-weight: 600;
+		font-size: 400px;
+		line-height: 1;
+		margin: 0;
+		margin-bottom: 60px;
+		text-align: center;
+		margin-top: -100px;
+	}
+
+	h5 {
+		z-index: 1;
+		font-family: 'Inter', sans-serif;
+		font-weight: 500;
+		font-size: 55px;
+		line-height: 1;
+		margin: 0;
+		margin-bottom: 28px;
+		text-align: center;
+	}
+
+	p {
+		z-index: 1;
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 40px;
+		line-height: 1.2;
+		margin: 0;
+		width: 900px;
+		text-align: center;
+	}
+
+	.img {
+		width: 1124px;
+		height: 547px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-image: url('/public/images/catalog404.webp');
+		background-size: cover;
+		opacity: 0.28;
+	}
+}

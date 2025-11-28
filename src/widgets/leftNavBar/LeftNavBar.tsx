@@ -1,302 +1,187 @@
-// import { useState, useEffect } from 'react'
-// import './LeftNavBar.scss'
-// import { NavLink, useNavigate } from 'react-router-dom'
-
-// type Subcategory = string
-
-// interface Category {
-// 	id: number
-// 	name: string
-// 	subcategories: Subcategory[]
-// }
-
-// const MOCK_CATEGORIES_DATA: Category[] = [
-// 	{
-// 		id: 1,
-// 		name: 'Молочная продукция',
-// 		subcategories: [
-// 			'Заквасочные культуры',
-// 			'Стабилизаторы',
-// 			'Ароматизаторы',
-// 			'Консерванты',
-// 			'Ферменты',
-// 			'Заменитель молочного жира',
-// 			'СОМ',
-// 			'Сыворотка',
-// 		],
-// 	},
-// 	{
-// 		id: 2,
-// 		name: 'Специализированные жиры',
-// 		subcategories: [
-// 			'Заквасочные культурыs',
-// 			'Стабилизаторы',
-// 			'Ароматизаторы',
-// 			'Консерванты',
-// 			'Ферменты',
-// 			'Заменитель молочного жира',
-// 			'СОМ',
-// 			'Сыворотка',
-// 		],
-// 	},
-// 	{ id: 3, name: 'Ногеса', subcategories: [] },
-// 	{ id: 4, name: 'Пищевая химия', subcategories: [] },
-// 	{ id: 5, name: 'Хлебобулочные изделия', subcategories: [] },
-// 	{ id: 6, name: 'Кондитерские изделия', subcategories: [] },
-// ]
-
-// export default function LeftNavBar() {
-// 	const [categories, setCategories] = useState<Category[]>([])
-// 	const [openCategories, setOpenCategories] = useState<Set<number>>(new Set())
-
-// 	const [activeSubcategory, setActiveSubcategory] = useState<string | null>(
-// 		null
-// 	)
-
-// 	const navigate = useNavigate()
-
-// 	useEffect(() => {
-// 		const fetchCategories = async () => {
-// 			setCategories(MOCK_CATEGORIES_DATA)
-// 		}
-// 		fetchCategories()
-// 	}, [])
-
-// 	const toggleCategory = (categoryId: number): void => {
-// 		const isCurrentlyOpen = openCategories.has(categoryId)
-
-// 		setActiveSubcategory(null)
-
-// 		setOpenCategories(prev => {
-// 			if (isCurrentlyOpen) {
-// 				return new Set()
-// 			} else {
-// 				return new Set([categoryId])
-// 			}
-// 		})
-// 	}
-
-// 	const isCategoryOpen = (categoryId: number): boolean => {
-// 		return openCategories.has(categoryId)
-// 	}
-
-// 	const handleSubcategoryClick = (subcategoryName: string): void => {
-// 		const subcategorySlug = subcategoryName.toLowerCase().replace(/\s+/g, '-')
-// 		const targetPath = `/catalog/${subcategorySlug}`
-
-// 		setActiveSubcategory(
-// 			activeSubcategory === subcategoryName ? null : subcategoryName
-// 		)
-
-// 		if (activeSubcategory !== subcategoryName) {
-// 			navigate(targetPath)
-// 		}
-// 	}
-
-// 	return (
-// 		<nav className='leftNavBar'>
-// 			{categories.length === 0 ? (
-// 				<div className='loading'>Загрузка категорий...</div>
-// 			) : (
-// 				categories.map(category => {
-// 					const hasSubcategories = category.subcategories.length > 0
-// 					const isOpen = isCategoryOpen(category.id)
-
-// 					const isCategoryActive =
-// 						isOpen || category.subcategories.includes(activeSubcategory || '')
-
-// 					return (
-// 						<div key={category.id} className='category-item'>
-// 							<div
-// 								className={`category-header ${
-// 									isCategoryActive ? 'active' : ''
-// 								} ${hasSubcategories ? 'has-children' : ''}`}
-// 								onClick={() => toggleCategory(category.id)}
-// 							>
-// 								<span className='category-name'>{category.name}</span>
-// 							</div>
-
-// 							{hasSubcategories && (
-// 								<div className={`subcategories-list ${isOpen ? 'open' : ''}`}>
-// 									{category.subcategories.map(subcategory => {
-// 										const isSubActive = subcategory === activeSubcategory
-
-// 										const subcategorySlug = subcategory
-// 											.toLowerCase()
-// 											.replace(/\s+/g, '-')
-// 										const targetPath = `/catalog/${subcategorySlug}`
-
-// 										return (
-// 											<NavLink
-// 												key={subcategory}
-// 												to={targetPath}
-// 												className={`subcategory-item ${
-// 													isSubActive ? 'active' : ''
-// 												}`}
-// 												onClick={() => handleSubcategoryClick(subcategory)}
-// 											>
-// 												{subcategory}
-// 											</NavLink>
-// 										)
-// 									})}
-// 								</div>
-// 							)}
-// 						</div>
-// 					)
-// 				})
-// 			)}
-// 		</nav>
-// 	)
-// }
-
 import { useState, useEffect } from 'react'
 import './LeftNavBar.scss'
-import { NavLink, useNavigate } from 'react-router-dom'
-import SubCategotyCard from '../subCategoryCard/SubCategoryCard'
-
-interface SubCategory {
-	name: string
-	to: string
-}
+import { NavLink, useLocation } from 'react-router-dom'
+import axios from 'axios'
 
 interface Category {
 	id: number
-	name: string
-	subcategories: SubCategory[]
+	title: string
+	slug: string
+	description?: string
+	image?: string
+	in_stock: boolean
+	on_order: boolean
 }
-
-const createSubcategoryObject = (name: string): SubCategory => {
-	const slug = name.toLowerCase().replace(/\s+/g, '-')
-	return {
-		name: name,
-		to: `/catalog/${slug}`,
-	}
-}
-
-const MOCK_CATEGORIES_DATA: Category[] = [
-	{
-		id: 1,
-		name: 'Молочная продукция',
-		subcategories: [
-			createSubcategoryObject('Заквасочные культуры'),
-			createSubcategoryObject('Стабилизаторы'),
-			createSubcategoryObject('Ароматизаторы'),
-			createSubcategoryObject('Консерванты'),
-			createSubcategoryObject('Ферменты'),
-			createSubcategoryObject('Заменитель молочного жира'),
-			createSubcategoryObject('СОМ'),
-			createSubcategoryObject('Сыворотка'),
-		],
-	},
-	{
-		id: 2,
-		name: 'Специализированные жиры',
-		subcategories: [
-			createSubcategoryObject('Заквасочные культурыs'),
-			createSubcategoryObject('Стабилизаторы'),
-			createSubcategoryObject('Ароматизаторы'),
-			createSubcategoryObject('Консерванты'),
-			createSubcategoryObject('Ферменты'),
-			createSubcategoryObject('Заменитель молочного жира'),
-			createSubcategoryObject('СОМ'),
-			createSubcategoryObject('Сыворотка'),
-		],
-	},
-	{ id: 3, name: 'Ногеса', subcategories: [] },
-	{ id: 4, name: 'Пищевая химия', subcategories: [] },
-	{ id: 5, name: 'Хлебобулочные изделия', subcategories: [] },
-	{ id: 6, name: 'Кондитерские изделия', subcategories: [] },
-]
 
 export default function LeftNavBar() {
 	const [categories, setCategories] = useState<Category[]>([])
+	const [subCategories, setSubCategories] = useState<{
+		[key: number]: Category[]
+	}>({})
 	const [openCategories, setOpenCategories] = useState<Set<number>>(new Set())
-
-	const [activeSubcategory, setActiveSubcategory] = useState<string | null>(
-		null
-	)
-
-	const navigate = useNavigate()
+	const [loading, setLoading] = useState(true)
+	const location = useLocation()
 
 	useEffect(() => {
-		const fetchCategories = async () => {
-			setCategories(MOCK_CATEGORIES_DATA)
+		async function fetchData() {
+			try {
+				setLoading(true)
+				const response = await axios.get(
+					'https://back-bonte.anti-flow.com/api/v1/catalog/'
+				)
+				setCategories(response.data)
+			} catch (error) {
+				console.error('Ошибка при получении данных:', error)
+			} finally {
+				setLoading(false)
+			}
 		}
-		fetchCategories()
+		fetchData()
 	}, [])
 
-	const toggleCategory = (categoryId: number): void => {
-		const isCurrentlyOpen = openCategories.has(categoryId)
+	useEffect(() => {
+		const currentPath = location.pathname
 
-		setActiveSubcategory(null)
+		categories.forEach(async category => {
+			// 1. Сначала проверяем, активна ли сама категория
+			if (currentPath === `/catalog/${category.slug}`) {
+				return
+			}
 
-		setOpenCategories(prev => {
-			if (isCurrentlyOpen) {
-				return new Set()
-			} else {
-				return new Set([categoryId])
+			let categorySubcategories = subCategories[category.id] || []
+
+			if (categorySubcategories.length === 0) {
+				try {
+					const response = await axios.get(
+						`https://back-bonte.anti-flow.com/api/v1/catalog/page/${category.slug}/`
+					)
+					categorySubcategories = response.data.children || []
+
+					setSubCategories(prev => ({
+						...prev,
+						[category.id]: categorySubcategories,
+					}))
+				} catch (error) {
+					console.error('Ошибка при авто-загрузке подкатегорий:', error)
+					return
+				}
+			}
+
+			const hasActiveSubcategory = categorySubcategories.some(
+				sub => `/catalog/${sub.slug}` === currentPath
+			)
+
+			if (hasActiveSubcategory && !openCategories.has(category.id)) {
+				setOpenCategories(prev => new Set([...prev, category.id]))
 			}
 		})
+	}, [location.pathname, categories])
+
+	const fetchSubcategories = async (
+		categoryId: number,
+		categorySlug: string
+	) => {
+		if (subCategories[categoryId]) return
+
+		try {
+			const response = await axios.get(
+				`https://back-bonte.anti-flow.com/api/v1/catalog/page/${categorySlug}/`
+			)
+			setSubCategories(prev => ({
+				...prev,
+				[categoryId]: response.data.children || [],
+			}))
+		} catch (error) {
+			console.error('Ошибка при получении подкатегорий:', error)
+		}
+	}
+
+	const toggleCategory = (categoryId: number, categorySlug: string): void => {
+		const isCurrentlyOpen = openCategories.has(categoryId)
+
+		if (!isCurrentlyOpen) {
+			fetchSubcategories(categoryId, categorySlug)
+			setOpenCategories(prev => new Set([...prev, categoryId]))
+		} else {
+			setOpenCategories(prev => {
+				const newSet = new Set(prev)
+				newSet.delete(categoryId)
+				return newSet
+			})
+		}
 	}
 
 	const isCategoryOpen = (categoryId: number): boolean => {
 		return openCategories.has(categoryId)
 	}
 
-	const handleSubcategoryClick = (subcategory: SubCategory): void => {
-		setActiveSubcategory(
-			activeSubcategory === subcategory.name ? null : subcategory.name
+	const isCategoryOrSubcategoryActive = (
+		categorySlug: string,
+		categoryId: number
+	) => {
+		const currentPath = location.pathname
+
+		if (currentPath === `/catalog/${categorySlug}`) {
+			return true
+		}
+
+		const categorySubcategories = subCategories[categoryId] || []
+		const hasActiveSubcategory = categorySubcategories.some(
+			sub => `/catalog/${sub.slug}` === currentPath
 		)
 
-		if (activeSubcategory !== subcategory.name) {
-			navigate(subcategory.to)
-		} else {
-			navigate('/catalog')
-		}
+		return hasActiveSubcategory
+	}
+
+	if (loading) {
+		return (
+			<nav className='leftNavBar'>
+				<div className='loading'>Загрузка категорий...</div>
+			</nav>
+		)
 	}
 
 	return (
 		<nav className='leftNavBar'>
 			{categories.length === 0 ? (
-				<div className='loading'>Загрузка категорий...</div>
+				<div className='loading'>Категории не найдены</div>
 			) : (
 				categories.map(category => {
-					const hasSubcategories = category.subcategories.length > 0
+					const categorySubcategories = subCategories[category.id] || []
 					const isOpen = isCategoryOpen(category.id)
-
-					const isCategoryActive =
-						isOpen ||
-						category.subcategories.some(sub => sub.name === activeSubcategory)
+					const isActive = isCategoryOrSubcategoryActive(
+						category.slug,
+						category.id
+					)
 
 					return (
 						<div key={category.id} className='category-item'>
-							<div
-								className={`category-header ${
-									isCategoryActive ? 'active' : ''
-								} ${hasSubcategories ? 'has-children' : ''}`}
-								onClick={() => toggleCategory(category.id)}
+							<NavLink
+								to={`/catalog/${category.slug}`}
+								className={({ isActive: isNavLinkActive }) =>
+									`category-header ${
+										isNavLinkActive ||
+										isCategoryOrSubcategoryActive(category.slug, category.id)
+											? 'active'
+											: ''
+									}`
+								}
+								onClick={() => toggleCategory(category.id, category.slug)}
 							>
-								<span className='category-name'>{category.name}</span>
-							</div>
+								<div className='category-name'>{category.title}</div>
+							</NavLink>
 
-							{hasSubcategories && (
+							{categorySubcategories.length > 0 && (
 								<div className={`subcategories-list ${isOpen ? 'open' : ''}`}>
-									{category.subcategories.map(subcategory => {
-										const isSubActive = subcategory.name === activeSubcategory
-
-										return (
-											<NavLink
-												key={subcategory.name}
-												to={subcategory.to}
-												className={`subcategory-item ${
-													isSubActive ? 'active' : ''
-												}`}
-												onClick={() => handleSubcategoryClick(subcategory)}
-											>
-												{subcategory.name}
-											</NavLink>
-										)
-									})}
+									{categorySubcategories.map(subcategory => (
+										<NavLink
+											key={subcategory.id}
+											to={`/catalog/${subcategory.slug}`}
+											className='subcategory-item'
+										>
+											{subcategory.title}
+										</NavLink>
+									))}
 								</div>
 							)}
 						</div>
