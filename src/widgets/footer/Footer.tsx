@@ -1,20 +1,15 @@
 import Map from '../map/Map'
 import Navigation from '../navigation/Navigation'
 import './Footer.scss'
-
+import { EmailType, ContactType } from '../../types'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-
-interface ContactItem {
-	id: number
-	title: string
-}
 
 export default function Footer() {
 	const [loading, setLoading] = useState<boolean>(true)
 	const [workTime, setWorkTime] = useState<string>('')
-	const [phoneNumber, setPhoneNumber] = useState<ContactItem[]>([])
-	const [email, setEmail] = useState<ContactItem[]>([])
+	const [phoneNumber, setPhoneNumber] = useState<ContactType[]>([])
+	const [email, setEmail] = useState<EmailType[]>([])
 
 	const [latitude, setLatitude] = useState<number | null>(null)
 	const [longitude, setLongitude] = useState<number | null>(null)
@@ -43,6 +38,10 @@ export default function Footer() {
 
 		fetchData()
 	}, [])
+
+	if (loading) {
+		return <div className='loading'>Загрузка данных...</div>
+	}
 
 	return (
 		<footer id='contacts' className='Footer'>

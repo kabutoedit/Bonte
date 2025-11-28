@@ -1,16 +1,12 @@
 import './Map.scss'
-
-interface ContactItem {
-	id: number
-	title: string
-}
+import { EmailType, ContactType } from '../../types'
 
 interface MapProps {
 	latitude: number | null
 	longitude: number | null
 	address: string
-	phoneNumbers: Array<ContactItem>
-	email: Array<ContactItem>
+	phoneNumbers: Array<ContactType>
+	email: Array<EmailType>
 }
 
 export default function Map({

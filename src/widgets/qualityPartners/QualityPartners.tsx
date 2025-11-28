@@ -32,6 +32,10 @@ export default function QualityPartners() {
 		fetchData()
 	}, [])
 
+	if (loading) {
+		return <div className='loading'>Загрузка партнеров...</div>
+	}
+
 	return (
 		<section className='QualityPartners'>
 			<div className='container'>

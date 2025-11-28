@@ -4,17 +4,7 @@ import ProductCard from '../../widgets/productCard/ProductCard'
 import Button from '../../shared/ui/Button'
 import './Products.scss'
 import Catalog404 from '../../widgets/catalog404/Catalog404'
-
-interface ProductsType {
-	id: number
-	title: string
-	slug: string
-	description?: string
-	image?: string
-	in_stock: boolean
-	on_order: boolean
-	parent: number
-}
+import { ProductsType } from '../../types'
 
 type ProductsProps = {
 	products: ProductsType[]

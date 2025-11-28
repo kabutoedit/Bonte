@@ -43,7 +43,6 @@ export default function LeftNavBar() {
 		const currentPath = location.pathname
 
 		categories.forEach(async category => {
-			// 1. Сначала проверяем, активна ли сама категория
 			if (currentPath === `/catalog/${category.slug}`) {
 				return
 			}
@@ -149,10 +148,6 @@ export default function LeftNavBar() {
 				categories.map(category => {
 					const categorySubcategories = subCategories[category.id] || []
 					const isOpen = isCategoryOpen(category.id)
-					const isActive = isCategoryOrSubcategoryActive(
-						category.slug,
-						category.id
-					)
 
 					return (
 						<div key={category.id} className='category-item'>

@@ -1,21 +1,11 @@
 import './ProductCard.scss'
-
-interface Product {
-	image: string
-	id: number
-	title: string
-	description: string
-	available: boolean
-	on_order: boolean
-}
+import { ProductsType } from '../../types'
 
 type ProductCardProps = {
-	product: Product
+	product: ProductsType
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-	console.log(product)
-
 	return (
 		<>
 			<div className='productCard' key={product.id}>
@@ -25,8 +15,8 @@ export default function ProductCard({ product }: ProductCardProps) {
 				<h3>{product.title}</h3>
 				<p>{product.description}</p>
 				<div className='btns'>
-					<div className={product.available ? 'available' : 'notAvailable'}>
-						{product.available ? 'В наличии' : 'Не в наличии'}
+					<div className={product.in_stock ? 'available' : 'notAvailable'}>
+						{product.in_stock ? 'В наличии' : 'Не в наличии'}
 					</div>
 					<div className={product.on_order ? 'toOrder' : 'notAvailable'}>
 						{product.on_order ? 'В наличии' : 'Не доступно'}

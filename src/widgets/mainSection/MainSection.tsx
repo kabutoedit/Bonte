@@ -3,19 +3,14 @@ import { Link } from 'react-router-dom'
 import Button from '../../shared/ui/Button'
 import './MainSection.scss'
 import axios from 'axios'
-
-interface SliderItem {
-	id: number
-	title: string
-	image: string
-}
+import { SliderType } from '../../types'
 
 const SLIDER_INTERVAL = 2000
 
 export default function MainSection() {
 	const [currentSlide, setCurrentSlide] = useState<number>(0)
 	const [loading, setLoading] = useState<boolean>(true)
-	const [sliderData, setSliderData] = useState<SliderItem[]>([])
+	const [sliderData, setSliderData] = useState<SliderType[]>([])
 
 	const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
@@ -53,26 +48,6 @@ export default function MainSection() {
 
 	const currentItem = sliderData[currentSlide]
 
-	if (loading) {
-		return (
-			<section id='main' className='main-section'>
-				<div className='container'>
-					<div className='loading'>Загрузка контента...</div>
-				</div>
-			</section>
-		)
-	}
-
-	if (!currentItem) {
-		return (
-			<section id='main' className='main-section'>
-				<div className='container'>
-					<div className='info'>Нет доступных слайдов.</div>
-				</div>
-			</section>
-		)
-	}
-
 	return (
 		<section id='main' className='main-section'>
 			<div className='container'>
@@ -87,6 +62,8 @@ export default function MainSection() {
 				</div>
 
 				<div className='main-section__sliderBlock'>
+					{loading && <div className='loading'>Загрузка контента...</div>}
+
 					<div className='slider__content' key={currentItem.id}>
 						<div className='img'>
 							<img src={currentItem.image} alt={currentItem.title} />

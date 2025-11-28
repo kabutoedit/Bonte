@@ -2,23 +2,14 @@ import Button from '../../shared/ui/Button'
 import LeftNavbar from '../../widgets/leftNavBar/LeftNavBar'
 import SubCategoryCard from '../../widgets/subCategoryCard/SubCategoryCard'
 import './Category.scss'
+import { ProductsType } from '../../types'
 
-// export default function Category() {
-// 	return (
-// 		<div className='categoryPage'>
-// 			<LeftNavbar />
-// 			<div className='subCategory'>
-// 				<div className='cardContainer'>
-// 					<SubCategoryCard />
-// 				</div>
-// 				<Button>Заказать по WhatsApp</Button>
-// 			</div>
-// 		</div>
-// 	)
-// }
+type CategoriesProps = {
+	categories: ProductsType[]
+}
 
-export default function Category({ categories }) {
-	console.log('category page')
+export default function Category({ categories }: CategoriesProps) {
+	console.log(categories)
 
 	return (
 		<div className='categoryPage'>
@@ -27,7 +18,7 @@ export default function Category({ categories }) {
 			<div className='subCategory'>
 				<div className='cardContainer'>
 					{categories.map(cat => (
-						<SubCategoryCard key={cat.id} data={cat} />
+						<SubCategoryCard key={cat.id} subCategories={cat} />
 					))}
 				</div>
 

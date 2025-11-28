@@ -1,21 +1,26 @@
 import './SubCategoryCard.scss'
+import { ProductsType } from '../../types'
 
-export default function SubCategoryCard({ data }) {
+type SubCategoryProps = {
+	subCategories: ProductsType
+}
+
+export default function SubCategoryCard({ subCategories }: SubCategoryProps) {
 	return (
 		<div className='SubCategoryCard'>
 			<div className='img'>
-				<img src={data.image} alt={data.title} />
+				<img src={subCategories.image} alt={subCategories.title} />
 			</div>
 
-			<h3>{data.title}</h3>
+			<h3>{subCategories.title}</h3>
 
 			<div className='btns'>
-				<div className={data.in_stock ? 'available' : 'notAvailable'}>
-					{data.in_stock ? 'В наличии' : 'Не в наличии'}
+				<div className={subCategories.in_stock ? 'available' : 'notAvailable'}>
+					{subCategories.in_stock ? 'В наличии' : 'Не в наличии'}
 				</div>
 
-				<div className={data.on_order ? 'toOrder' : 'notAvailable'}>
-					{data.on_order ? 'В наличии' : 'Не доступно'}
+				<div className={subCategories.on_order ? 'toOrder' : 'notAvailable'}>
+					{subCategories.on_order ? 'В наличии' : 'Не доступно'}
 				</div>
 			</div>
 		</div>
