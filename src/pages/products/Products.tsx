@@ -20,53 +20,60 @@ export default function Products({ products }: ProductsProps) {
 
 	return (
 		<div className='subCategoryBlock'>
-			<LeftNavbar />
+			<div
+				className='containerCatalog'
+				style={{ display: 'flex', width: 1440, margin: '0 auto' }}
+			>
+				<LeftNavbar />
 
-			<div className='subCategory'>
-				{mainSubCategory && (
-					<div className='bigCard'>
-						<div className='textBlock'>
-							<h2>{mainSubCategory.title}</h2>
-							{mainSubCategory.description && (
-								<>
-									<p>
-										{expanded
-											? mainSubCategory.description
-											: mainSubCategory.description.slice(0, 350)}
-										{mainSubCategory.description.length > 350 &&
-											!expanded &&
-											'...'}
-									</p>
-									{mainSubCategory.description.length > 350 && (
-										<h6 onClick={() => setExpanded(prev => !prev)}>
-											{expanded ? 'Скрыть' : 'Подробнее'}
-										</h6>
-									)}
-								</>
-							)}
+				<div className='subCategory'>
+					{mainSubCategory && (
+						<div className='bigCard'>
+							<div className='textBlock'>
+								<h2>{mainSubCategory.title}</h2>
+								{mainSubCategory.description && (
+									<>
+										<p>
+											{expanded
+												? mainSubCategory.description
+												: mainSubCategory.description.slice(0, 350)}
+											{mainSubCategory.description.length > 350 &&
+												!expanded &&
+												'...'}
+										</p>
+										{mainSubCategory.description.length > 350 && (
+											<h6 onClick={() => setExpanded(prev => !prev)}>
+												{expanded ? 'Скрыть' : 'Подробнее'}
+											</h6>
+										)}
+									</>
+								)}
+							</div>
+							<div className='img'>
+								<img
+									src={
+										`https://back-bonte.anti-flow.com` + mainSubCategory.image
+									}
+									alt={mainSubCategory.title}
+								/>
+							</div>
 						</div>
-						<div className='img'>
-							<img
-								src={`https://back-bonte.anti-flow.com` + mainSubCategory.image}
-								alt={mainSubCategory.title}
-							/>
-						</div>
+					)}
+
+					<div className='cardContainer'>
+						{products.map(product => (
+							<div
+								style={{ cursor: 'pointer' }}
+								key={product.id}
+								onClick={() => setMainSubCategory(product)}
+							>
+								<ProductCard product={product} />
+							</div>
+						))}
 					</div>
-				)}
 
-				<div className='cardContainer'>
-					{products.map(product => (
-						<div
-							style={{ cursor: 'pointer' }}
-							key={product.id}
-							onClick={() => setMainSubCategory(product)}
-						>
-							<ProductCard product={product} />
-						</div>
-					))}
+					<Button>Заказать по WhatsApp</Button>
 				</div>
-
-				<Button>Заказать по WhatsApp</Button>
 			</div>
 		</div>
 	)

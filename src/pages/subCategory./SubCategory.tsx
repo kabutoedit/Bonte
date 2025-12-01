@@ -12,22 +12,27 @@ type SubCategoryProps = {
 export default function SubCategory({ subCategories }: SubCategoryProps) {
 	return (
 		<div className='subCategoryBlock'>
-			<LeftNavbar />
+			<div
+				className='containerCatalog'
+				style={{ display: 'flex', width: 1440, margin: '0 auto' }}
+			>
+				<LeftNavbar />
 
-			<div className='subCategory'>
-				<div className='cardContainer'>
-					{subCategories.map(subCategory => (
-						<NavLink
-							to={`/catalog/${subCategory.slug}`}
-							style={{ cursor: 'pointer', color: 'rgba(12, 30, 52, 1)' }}
-							key={subCategory.id}
-						>
-							<SubCategoryCard subCategories={subCategory} />
-						</NavLink>
-					))}
+				<div className='subCategory'>
+					<div className='cardContainer'>
+						{subCategories.map(subCategory => (
+							<NavLink
+								to={`/catalog/${subCategory.slug}`}
+								style={{ cursor: 'pointer', color: 'rgba(12, 30, 52, 1)' }}
+								key={subCategory.id}
+							>
+								<SubCategoryCard subCategories={subCategory} />
+							</NavLink>
+						))}
+					</div>
+
+					<Button>Заказать по WhatsApp</Button>
 				</div>
-
-				<Button>Заказать по WhatsApp</Button>
 			</div>
 		</div>
 	)
