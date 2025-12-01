@@ -10,25 +10,17 @@ interface Partner {
 }
 
 export default function OurPartners() {
-	const [loading, setLoading] = useState(true)
 	const [sliderData, setSliderData] = useState<Partner[]>([])
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				const response = await axios.get<Partner[]>(
+				const response = await axios.get(
 					'https://back-bonte.anti-flow.com/api/v1/partner/carousel/'
 				)
 
-				const data =
-					response.data?.map(partner => ({
-						...partner,
-						logo: partner.logo.startsWith('http')
-							? partner.logo
-							: `https://${partner.logo}`,
-					})) || []
-
-				setSliderData(data)
+				setSliderData(response.data)
 			} catch (error) {
 				console.error('Ошибка при получении данных:', error)
 			} finally {
@@ -39,30 +31,9 @@ export default function OurPartners() {
 		fetchData()
 	}, [])
 
-	console.log(sliderData)
-
 	if (loading) {
-		return (
-			<section className='our-partners'>
-				<div className='container'>
-					<h2>Наши партнёры</h2>
-					<div className='loading'>Загрузка...</div>
-				</div>
-			</section>
-		)
+		return <div className='loading'>Загрузка партнеров...</div>
 	}
-
-	if (!sliderData.length) {
-		return (
-			<section className='our-partners'>
-				<div className='container'>
-					<h2>Наши партнёры</h2>
-					<div className='no-data'>Нет данных о партнерах</div>
-				</div>
-			</section>
-		)
-	}
-
 	return (
 		<section className='our-partners'>
 			<div className='container'>
@@ -80,6 +51,7 @@ export default function OurPartners() {
 								alignItems: 'center',
 								justifyContent: 'center',
 							}}
+							className='logo'
 						>
 							<img
 								src={partner.logo}

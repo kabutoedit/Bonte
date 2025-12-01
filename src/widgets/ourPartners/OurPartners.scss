@@ -80,6 +80,11 @@
 		.partners-track {
 			height: 80px;
 			gap: 20px;
+
+			.logo {
+				height: 72px !important;
+				width: 110px !important;
+			}
 		}
 
 		.partner-logo {

@@ -20,7 +20,6 @@ export default function QualityPartners() {
 					'https://back-bonte.anti-flow.com/api/v1/client/carousel/'
 				)
 
-				console.log(response.data)
 				setPartners(response.data)
 			} catch (error) {
 				console.error('Ошибка при получении данных:', error)
@@ -39,7 +38,7 @@ export default function QualityPartners() {
 	return (
 		<section className='our-partners'>
 			<div className='container'>
-				<h2>Наши партнёры</h2>
+				<h2>Поставляем сырье для компаний ,которым не все равно на качество</h2>
 
 				<div className='partners-track'>
 					{partners.map(partner => (
@@ -53,6 +52,7 @@ export default function QualityPartners() {
 								alignItems: 'center',
 								justifyContent: 'center',
 							}}
+							className='logo'
 						>
 							<img
 								src={partner.logo}
