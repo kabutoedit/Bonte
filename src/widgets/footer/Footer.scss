@@ -98,3 +98,9 @@
 		line-height: 20px;
 	}
 }
+
+@media (max-width: 375px) {
+	.Footer {
+		padding: 13px 13px 76px 13px;
+	}
+}

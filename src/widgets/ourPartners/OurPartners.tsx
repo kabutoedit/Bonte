@@ -1,105 +1,93 @@
 import './OurPartners.scss'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 interface Partner {
 	id: number
-	name: string
 	logo: string
-	hasBorderRadius?: boolean
-	width: number
-	height: number
+	name: string
+	slug?: string
 }
 
-const partners: Partner[] = [
-	{
-		id: 1,
-		name: 'Kulikov',
-		logo: '/images/ourPartners/kulikov.jpg',
-		hasBorderRadius: false,
-		width: 332,
-		height: 91,
-	},
-	{
-		id: 2,
-		name: 'Wildberries',
-		logo: '/images/ourPartners/wb.jpg',
-		hasBorderRadius: true,
-		width: 240,
-		height: 113,
-	},
-	{
-		id: 3,
-		name: 'Dostor',
-		logo: '/images/ourPartners/dostor.jpg',
-		hasBorderRadius: true,
-		width: 129,
-		height: 129,
-	},
-	{
-		id: 4,
-		name: 'Mbank',
-		logo: '/images/ourPartners/mbank.png',
-		hasBorderRadius: false,
-		width: 226,
-		height: 54,
-	},
-	{
-		id: 5,
-		name: 'Yandex Go',
-		logo: '/images/ourPartners/yandex.jpg',
-		hasBorderRadius: true,
-		width: 284,
-		height: 122,
-	},
-	{
-		id: 6,
-		name: 'Heart',
-		logo: '/images/ourPartners/heart.png',
-		hasBorderRadius: false,
-		width: 119,
-		height: 119,
-	},
-	{
-		id: 7,
-		name: 'Glovo',
-		logo: '/images/ourPartners/glovo.png',
-		hasBorderRadius: true,
-		width: 261,
-		height: 250,
-	},
-]
-
 export default function OurPartners() {
+	const [loading, setLoading] = useState(true)
+	const [sliderData, setSliderData] = useState<Partner[]>([])
+
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const response = await axios.get<Partner[]>(
+					'https://back-bonte.anti-flow.com/api/v1/partner/carousel/'
+				)
+
+				const data =
+					response.data?.map(partner => ({
+						...partner,
+						logo: partner.logo.startsWith('http')
+							? partner.logo
+							: `https://${partner.logo}`,
+					})) || []
+
+				setSliderData(data)
+			} catch (error) {
+				console.error('Ошибка при получении данных:', error)
+			} finally {
+				setLoading(false)
+			}
+		}
+
+		fetchData()
+	}, [])
+
+	console.log(sliderData)
+
+	if (loading) {
+		return (
+			<section className='our-partners'>
+				<div className='container'>
+					<h2>Наши партнёры</h2>
+					<div className='loading'>Загрузка...</div>
+				</div>
+			</section>
+		)
+	}
+
+	if (!sliderData.length) {
+		return (
+			<section className='our-partners'>
+				<div className='container'>
+					<h2>Наши партнёры</h2>
+					<div className='no-data'>Нет данных о партнерах</div>
+				</div>
+			</section>
+		)
+	}
+
 	return (
 		<section className='our-partners'>
 			<div className='container'>
 				<h2>Наши партнёры</h2>
+
 				<div className='partners-track'>
-					{partners.map(partner => (
-						<div key={partner.id} className='partner-logo'>
+					{sliderData.map(partner => (
+						<div
+							key={partner.id}
+							style={{
+								flexShrink: 0,
+								width: '200px',
+								height: '100px',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+							}}
+						>
 							<img
 								src={partner.logo}
 								alt={partner.name}
-								className={partner.hasBorderRadius ? 'with-radius' : ''}
-								width={partner.width}
-								height={partner.height}
-								style={{
-									width: `${partner.width}px`,
-									height: `${partner.height}px`,
-								}}
-							/>
-						</div>
-					))}
-					{partners.map(partner => (
-						<div key={`duplicate-${partner.id}`} className='partner-logo'>
-							<img
-								src={partner.logo}
-								alt={partner.name}
-								className={partner.hasBorderRadius ? 'with-radius' : ''}
-								width={partner.width}
-								height={partner.height}
-								style={{
-									width: `${partner.width}px`,
-									height: `${partner.height}px`,
+								style={{ maxWidth: '100%', maxHeight: '100%' }}
+								onError={e => {
+									e.currentTarget.src = 'https://via.placeholder.com/150x100'
+									e.currentTarget.alt = 'Логотип не найден'
 								}}
 							/>
 						</div>

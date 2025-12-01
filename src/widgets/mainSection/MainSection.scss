@@ -88,3 +88,68 @@
 		}
 	}
 }
+
+@media (max-width: 375px) {
+	.main-section {
+		height: 812px;
+		padding-top: 158px;
+		.container {
+			flex-direction: column;
+		}
+
+		&__text {
+			width: 291px;
+			height: 304px;
+			margin: 0 auto;
+			margin-bottom: 30px;
+
+			p {
+				width: 295px;
+				font-weight: 500;
+				font-size: 14px;
+			}
+
+			span {
+				display: inline-block;
+				font-size: 35px;
+				line-height: 44px;
+				width: 300px;
+				overflow-wrap: break-word;
+			}
+		}
+
+		&__sliderBlock {
+			padding: 15px;
+			width: 241px;
+			height: 275px;
+			border-radius: 5px;
+			margin-left: 40px;
+
+			.slider__content {
+				.img {
+					width: 212px;
+					height: 127px;
+					border-radius: 5px;
+				}
+				h4 {
+					width: 212px;
+					font-size: 28px;
+					line-height: 28.83px;
+					overflow-wrap: break-word;
+					margin: 13px 0 15px 0;
+				}
+
+				a {
+					.button {
+						border-radius: 5px;
+						width: 212px;
+						height: 34px;
+						font-weight: 500;
+						font-size: 9.22px;
+						line-height: 160%;
+					}
+				}
+			}
+		}
+	}
+}

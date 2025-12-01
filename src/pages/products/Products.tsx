@@ -46,7 +46,10 @@ export default function Products({ products }: ProductsProps) {
 							)}
 						</div>
 						<div className='img'>
-							<img src={mainSubCategory.image} alt={mainSubCategory.title} />
+							<img
+								src={`https://back-bonte.anti-flow.com` + mainSubCategory.image}
+								alt={mainSubCategory.title}
+							/>
 						</div>
 					</div>
 				)}

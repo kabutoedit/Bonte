@@ -2,8 +2,49 @@ import { Link } from 'react-router-dom'
 import Navigation from '../navigation/Navigation'
 import Button from '../../shared/ui/Button/Button'
 import './Header.scss'
+import { useState, useEffect } from 'react'
+import MobileBurger from '../mobileBurger/MobileBurger'
 
 export default function Header({ isHome }: { isHome: boolean }) {
+	const [isMobile, setIsMobile] = useState(false)
+	const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			const mobileMenu = document.querySelector('.MobileBurger')
+			if (
+				isMenuOpen &&
+				mobileMenu &&
+				!mobileMenu.contains(event.target as Node)
+			) {
+				setIsMenuOpen(false)
+			}
+		}
+
+		if (isMenuOpen) {
+			document.addEventListener('mousedown', handleClickOutside)
+		}
+
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside)
+		}
+	}, [isMenuOpen])
+
+	useEffect(() => {
+		const checkScreenSize = () => {
+			setIsMobile(window.innerWidth <= 375)
+		}
+
+		checkScreenSize()
+		window.addEventListener('resize', checkScreenSize)
+
+		return () => window.removeEventListener('resize', checkScreenSize)
+	}, [])
+
+	const toggleMenu = () => {
+		setIsMenuOpen(!isMenuOpen)
+	}
+
 	return (
 		<header className={isHome ? 'header header--white' : 'header header--blue'}>
 			<div className='container'>
@@ -22,8 +63,43 @@ export default function Header({ isHome }: { isHome: boolean }) {
 							/>
 						</svg>
 					</Link>
-					<Navigation />
-					<Button>СВЯЗАТЬСЯ С НАМИ</Button>
+					{!isMobile ? (
+						<>
+							<Navigation />
+							<Button>СВЯЗАТЬСЯ С НАМИ</Button>
+						</>
+					) : (
+						<svg
+							width='30'
+							height='24'
+							viewBox='0 0 30 24'
+							fill='none'
+							xmlns='http://www.w3.org/2000/svg'
+							className='menuButton'
+							onClick={toggleMenu}
+						>
+							<path
+								d='M6 7H24'
+								stroke='white'
+								stroke-width='2'
+								stroke-linecap='round'
+							/>
+							<path
+								d='M6 12H24'
+								stroke='white'
+								stroke-width='2'
+								stroke-linecap='round'
+							/>
+							<path
+								d='M6 17H24'
+								stroke='white'
+								stroke-width='2'
+								stroke-linecap='round'
+							/>
+						</svg>
+					)}
+
+					{isMenuOpen && <MobileBurger />}
 				</div>
 			</div>
 		</header>

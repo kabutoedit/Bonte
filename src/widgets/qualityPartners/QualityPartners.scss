@@ -46,3 +46,29 @@
 		transform: translateX(-50%);
 	}
 }
+
+@media (max-width: 375px) {
+	.QualityPartners {
+		margin-top: 80px;
+		margin-bottom: 258px;
+
+		h2 {
+			font-size: 24px;
+			line-height: 29px;
+			margin-bottom: 20px;
+		}
+
+		.partners-track {
+			height: 80px;
+			gap: 20px;
+		}
+
+		.partner-logo {
+			width: 80px;
+
+			img {
+				height: 45%;
+			}
+		}
+	}
+}

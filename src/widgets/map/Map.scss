@@ -54,3 +54,20 @@
 		}
 	}
 }
+
+@media (max-width: 375px) {
+	.map {
+		width: 348px;
+		height: 399px;
+		border-radius: 10px;
+
+		.info {
+			width: 306px;
+			height: 243px;
+			border-radius: 6.68px;
+			border-width: 0.67px;
+			left: auto;
+			right: auto;
+		}
+	}
+}

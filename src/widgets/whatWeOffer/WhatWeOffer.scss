@@ -137,3 +137,56 @@
 		}
 	}
 }
+
+@media (max-width: 375px) {
+	.what-we-offer {
+		div {
+			height: auto;
+			width: auto;
+			align-items: center;
+		}
+		h2 {
+			width: 188px;
+
+			font-size: 28px;
+			line-height: 29.09px;
+			text-align: center;
+			margin: 0 auto;
+			margin-top: 80px;
+		}
+		.content {
+			margin-top: 30px;
+			.up-block {
+				height: auto;
+
+				flex-direction: column;
+			}
+
+			.down-block {
+				height: auto;
+				flex-direction: column;
+			}
+
+			.big-offer-block,
+			.little-offer-block,
+			.medium-offer-block {
+				width: 307px;
+				height: 289px;
+				padding-left: 15px;
+
+				h5 {
+					font-weight: 600;
+					font-size: 21px;
+					line-height: 30.76px;
+					margin-bottom: 12px;
+				}
+
+				p {
+					font-weight: 500;
+					font-size: 14px;
+					line-height: 160%;
+				}
+			}
+		}
+	}
+}

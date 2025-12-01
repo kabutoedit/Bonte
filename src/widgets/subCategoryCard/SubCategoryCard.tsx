@@ -9,7 +9,10 @@ export default function SubCategoryCard({ subCategories }: SubCategoryProps) {
 	return (
 		<div className='SubCategoryCard'>
 			<div className='img'>
-				<img src={subCategories.image} alt={subCategories.title} />
+				<img
+					src={`https://back-bonte.anti-flow.com` + subCategories.image}
+					alt={subCategories.title}
+				/>
 			</div>
 
 			<h3>{subCategories.title}</h3>

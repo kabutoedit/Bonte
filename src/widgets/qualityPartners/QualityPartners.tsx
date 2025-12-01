@@ -17,7 +17,7 @@ export default function QualityPartners() {
 		async function fetchData() {
 			try {
 				const response = await axios.get(
-					'https://back-bonte.anti-flow.com/api/v1/partner/carousel/'
+					'https://back-bonte.anti-flow.com/api/v1/client/carousel/'
 				)
 
 				console.log(response.data)
@@ -37,18 +37,32 @@ export default function QualityPartners() {
 	}
 
 	return (
-		<section className='QualityPartners'>
+		<section className='our-partners'>
 			<div className='container'>
 				<h2>Наши партнёры</h2>
+
 				<div className='partners-track'>
 					{partners.map(partner => (
-						<div key={partner.id} className='partner-logo'>
-							<img src={partner.logo} alt={partner.name} />
-						</div>
-					))}
-					{partners.map(partner => (
-						<div key={`duplicate-${partner.id}`} className='partner-logo'>
-							<img src={partner.logo} alt={partner.name} />
+						<div
+							key={partner.id}
+							style={{
+								flexShrink: 0,
+								width: '200px',
+								height: '100px',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+							}}
+						>
+							<img
+								src={partner.logo}
+								alt={partner.name}
+								style={{ maxWidth: '100%', maxHeight: '100%' }}
+								onError={e => {
+									e.currentTarget.src = 'https://via.placeholder.com/150x100'
+									e.currentTarget.alt = 'Логотип не найден'
+								}}
+							/>
 						</div>
 					))}
 				</div>

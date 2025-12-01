@@ -1,10 +1,80 @@
+// .header {
+// 	height: 74px;
+// 	top: 55px;
+// 	left: 80px;
+// 	right: 80px;
+// 	position: fixed;
+// 	z-index: 1000;
+
+// 	&__main {
+// 		backdrop-filter: blur(140.8px);
+// 		box-shadow: 0px 0px 68px 0px rgba(255, 255, 255, 0.05) inset;
+// 		background: rgba(210, 210, 210, 0.3);
+
+// 		display: flex;
+// 		align-items: center;
+// 		justify-content: space-between;
+// 		position: relative;
+// 		min-height: 80px;
+// 		border-radius: 15px;
+
+// 		padding: 0 19px 0 33px;
+// 	}
+
+// 	&__logo {
+// 		display: inline-flex;
+// 		align-items: center;
+// 		text-decoration: none;
+// 	}
+// }
+
+// .header--white .navigation__link {
+// 	color: white;
+// }
+
+// .header--blue .navigation__link {
+// 	color: #0c1e34;
+// }
+
+// @media (max-width: 375px) {
+// 	.header {
+// 		width: 309px;
+// 		height: 24px;
+
+// 		top: 35px;
+// 		left: auto;
+// 		right: auto;
+
+// 		&__main {
+// 			backdrop-filter: none;
+// 			box-shadow: none;
+// 			background: none;
+// 			margin: 0 auto;
+
+// 			display: flex;
+// 			align-items: center;
+// 			justify-content: space-between;
+// 			position: relative;
+// 			min-height: 80px;
+// 			border-radius: 15px;
+
+// 			padding: 0 19px 0 33px;
+// 		}
+
+// 		&__logo {
+// 			width: 97px;
+// 			height: 24px;
+// 		}
+// 	}
+// }
+
 .header {
-	height: 74px;
+	position: fixed;
 	top: 55px;
 	left: 80px;
 	right: 80px;
-	position: fixed;
 	z-index: 1000;
+	height: 74px;
 
 	&__main {
 		backdrop-filter: blur(140.8px);
@@ -14,17 +84,20 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		position: relative;
 		min-height: 80px;
 		border-radius: 15px;
-
-		padding: 0 19px 0 33px;
+		padding: 0 33px;
 	}
 
 	&__logo {
 		display: inline-flex;
 		align-items: center;
 		text-decoration: none;
+
+		svg {
+			width: 126px;
+			height: 29px;
+		}
 	}
 }
 
@@ -34,4 +107,36 @@
 
 .header--blue .navigation__link {
 	color: #0c1e34;
+}
+
+@media (max-width: 375px) {
+	.header {
+		width: 100%;
+		height: auto;
+		top: 35px;
+		left: 0;
+		right: 0;
+
+		&__main {
+			width: 309px;
+			height: 24px;
+			margin: 0 auto;
+			backdrop-filter: none;
+			box-shadow: none;
+			background: none;
+			min-height: 24px;
+			border-radius: 0;
+			padding: 0;
+		}
+
+		&__logo {
+			width: 97px;
+			height: 24px;
+
+			svg {
+				width: 97px;
+				height: 24px;
+			}
+		}
+	}
 }

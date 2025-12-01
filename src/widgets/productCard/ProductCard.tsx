@@ -10,7 +10,10 @@ export default function ProductCard({ product }: ProductCardProps) {
 		<>
 			<div className='productCard' key={product.id}>
 				<div className='img'>
-					<img src={product.image} alt={product.title} />
+					<img
+						src={`https://back-bonte.anti-flow.com` + product.image}
+						alt={product.title}
+					/>
 				</div>
 				<h3>{product.title}</h3>
 				<p>{product.description}</p>

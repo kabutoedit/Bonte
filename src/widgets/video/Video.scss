@@ -82,3 +82,55 @@
 		z-index: 3;
 	}
 }
+
+@media (max-width: 375px) {
+	.VideoBlock {
+		margin-top: 40px;
+
+		.container {
+			flex-direction: column-reverse;
+
+			.video-content {
+				margin: 0 auto;
+				width: auto;
+				h2 {
+					width: auto;
+					font-size: 24px;
+					line-height: 25px;
+					text-align: left;
+					margin: 0 auto;
+					margin-bottom: 30px;
+				}
+			}
+
+			.video {
+				width: 296px;
+				height: 159px;
+				border-radius: 4.18px;
+				margin: 0 auto;
+
+				iframe {
+					border-radius: 4.18px;
+				}
+			}
+
+			.yellowBorder,
+			.grayBorder {
+				width: 293px;
+				height: 160px;
+				border-radius: 4.18px;
+				border-width: 0.42px;
+			}
+
+			.grayBorder {
+				top: 137px;
+				left: 49px;
+			}
+
+			.yellowBorder {
+				top: 132px;
+				left: 53px;
+			}
+		}
+	}
+}

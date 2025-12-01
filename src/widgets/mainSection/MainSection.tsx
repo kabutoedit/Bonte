@@ -60,7 +60,7 @@ export default function MainSection() {
 
 	const currentItem = sliderData[currentSlide]
 
-	return (
+	http: return (
 		<section id='main' className='main-section'>
 			<div className='container'>
 				<div className='main-section__text'>
@@ -78,7 +78,10 @@ export default function MainSection() {
 
 					<div className='slider__content' key={currentItem.id}>
 						<div className='img'>
-							<img src={currentItem.image} alt={currentItem.title} />
+							<img
+								src={`https://back-bonte.anti-flow.com` + currentItem.image}
+								alt={currentItem.title}
+							/>
 						</div>
 						<h4>{currentItem.title}</h4>
 						<Link to={`/catalog/${currentItem.slug}`}>
