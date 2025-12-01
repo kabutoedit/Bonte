@@ -17,7 +17,7 @@ export default function OurStatistics() {
 		}
 	}, [])
 
-	const Counter = ({ to = 0, duration = 500 }) => {
+	const Counter = ({ to = 0, duration = 1500 }) => {
 		const [count, setCount] = useState(0)
 
 		useEffect(() => {
