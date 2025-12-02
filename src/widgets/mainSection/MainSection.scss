@@ -89,7 +89,7 @@
 	}
 }
 
-@media (max-width: 375px) {
+@media (max-width: 450px) {
 	.main-section {
 		height: 812px;
 		padding-top: 158px;
@@ -100,7 +100,7 @@
 		&__text {
 			width: 291px;
 			height: 304px;
-			margin: 0 auto;
+			margin-top: 0;
 			margin-bottom: 30px;
 
 			p {
@@ -123,7 +123,6 @@
 			width: 241px;
 			height: 275px;
 			border-radius: 5px;
-			margin-left: 40px;
 
 			.slider__content {
 				.img {

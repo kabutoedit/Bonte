@@ -5,7 +5,7 @@ import './MainSection.scss'
 import axios from 'axios'
 import { SliderType } from '../../types'
 
-const SLIDER_INTERVAL = 2000
+const SLIDER_INTERVAL = 3500
 
 export default function MainSection() {
 	const [currentSlide, setCurrentSlide] = useState<number>(0)

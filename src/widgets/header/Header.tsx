@@ -32,7 +32,7 @@ export default function Header({ isHome }: { isHome: boolean }) {
 
 	useEffect(() => {
 		const checkScreenSize = () => {
-			setIsMobile(window.innerWidth <= 375)
+			setIsMobile(window.innerWidth <= 450)
 		}
 
 		checkScreenSize()

@@ -13,6 +13,22 @@ export default function QualityPartners() {
 	const [partners, setPartners] = useState<Partner[]>([])
 	const [loading, setLoading] = useState(true)
 
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+	useEffect(() => {
+		const handleResize = () => {
+			setWindowWidth(window.innerWidth)
+		}
+
+		window.addEventListener('resize', handleResize)
+
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [])
+
+	const dataToShow = windowWidth > 1400 ? [...partners, ...partners] : partners
+
 	useEffect(() => {
 		async function fetchData() {
 			try {
@@ -38,10 +54,10 @@ export default function QualityPartners() {
 	return (
 		<section className='our-partners'>
 			<div className='container'>
-				<h2>Поставляем сырье для компаний ,которым не все равно на качество</h2>
+				<h2>Поставляем сырье для компаний, которым не все равно на качество</h2>
 
 				<div className='partners-track'>
-					{partners.map(partner => (
+					{dataToShow.map(partner => (
 						<div
 							key={partner.id}
 							style={{

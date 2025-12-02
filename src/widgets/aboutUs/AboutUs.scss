@@ -84,12 +84,16 @@
 	}
 }
 
-@media (max-width: 375px) {
+@media (max-width: 450px) {
 	.AboutUs {
 		margin-top: 80px;
+		height: auto;
 
 		.container {
+			height: auto;
 			.about {
+				height: auto;
+
 				width: auto;
 
 				h2 {

@@ -19,7 +19,7 @@
 	.info {
 		display: flex;
 		flex-direction: column;
-		// justify-content: space-between;
+		height: 364px;
 		position: absolute;
 		background-color: #fff;
 		border: 1px solid rgba(248, 212, 95, 1);
@@ -62,11 +62,12 @@
 	}
 }
 
-@media (max-width: 375px) {
+@media (max-width: 450px) {
 	.map {
 		width: 348px;
 		height: 399px;
 		border-radius: 10px;
+		margin: 0 auto;
 
 		.info {
 			width: 306px;

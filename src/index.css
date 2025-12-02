@@ -25,3 +25,10 @@ body {
 a {
 	text-decoration: none;
 }
+
+@media (max-width: 450px) {
+	.container {
+		margin: 0 34px;
+		width: auto;
+	}
+}

@@ -72,9 +72,7 @@ export default function OurStatistics() {
 						<Counter to={600} />+
 					</h3>
 					<p>
-						Клиентов из <br /> сферы молочной, <br /> кондитерской и HoReCa{' '}
-						<br />
-						промышленности
+						Клиентов из сферы молочной, кондитерской и HoReCa промышленности
 					</p>
 				</div>
 			</div>

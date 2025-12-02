@@ -86,7 +86,7 @@ export default function Navigation({ onLinkClick, isMobile }: NavigationProps) {
 
 	useEffect(() => {
 		const checkScreenSize = () => {
-			setIsMobile(window.innerWidth <= 375)
+			setIsMobile(window.innerWidth <= 450)
 		}
 
 		checkScreenSize()
