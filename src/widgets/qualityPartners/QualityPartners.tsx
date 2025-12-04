@@ -56,6 +56,8 @@ export default function QualityPartners() {
 			<div className='container'>
 				<h2>Поставляем сырье для компаний, которым не все равно на качество</h2>
 
+				<span className='top-border'></span>
+
 				<div className='partners-track'>
 					{dataToShow.map(partner => (
 						<div
@@ -82,6 +84,8 @@ export default function QualityPartners() {
 						</div>
 					))}
 				</div>
+
+				<span className='bottom-border'></span>
 			</div>
 		</section>
 	)

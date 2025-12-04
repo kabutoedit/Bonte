@@ -19,8 +19,23 @@ export default function LeftNavBar() {
 		[key: number]: Category[]
 	}>({})
 	const [openCategories, setOpenCategories] = useState<Set<number>>(new Set())
+	const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
+		null
+	)
 	const [loading, setLoading] = useState(true)
+	const [isMobile, setIsMobile] = useState(false)
 	const location = useLocation()
+
+	useEffect(() => {
+		const checkScreenSize = () => {
+			setIsMobile(window.innerWidth <= 450)
+		}
+
+		checkScreenSize()
+		window.addEventListener('resize', checkScreenSize)
+
+		return () => window.removeEventListener('resize', checkScreenSize)
+	}, [])
 
 	useEffect(() => {
 		async function fetchData() {
@@ -30,6 +45,10 @@ export default function LeftNavBar() {
 					'https://back-bonte.anti-flow.com/api/v1/catalog/'
 				)
 				setCategories(response.data)
+				// Автоматически выбираем первую категорию при загрузке
+				if (response.data.length > 0) {
+					setSelectedCategoryId(response.data[0].id)
+				}
 			} catch (error) {
 				console.error('Ошибка при получении данных:', error)
 			} finally {
@@ -44,6 +63,7 @@ export default function LeftNavBar() {
 
 		categories.forEach(async category => {
 			if (currentPath === `/catalog/${category.slug}`) {
+				setSelectedCategoryId(category.id)
 				return
 			}
 
@@ -70,8 +90,11 @@ export default function LeftNavBar() {
 				sub => `/catalog/${sub.slug}` === currentPath
 			)
 
-			if (hasActiveSubcategory && !openCategories.has(category.id)) {
-				setOpenCategories(prev => new Set([...prev, category.id]))
+			if (hasActiveSubcategory) {
+				setSelectedCategoryId(category.id)
+				if (!openCategories.has(category.id)) {
+					setOpenCategories(prev => new Set([...prev, category.id]))
+				}
 			}
 		})
 	}, [location.pathname, categories])
@@ -140,48 +163,98 @@ export default function LeftNavBar() {
 		)
 	}
 
+	if (isMobile) {
+		const selectedCategory = categories.find(
+			cat => cat.id === selectedCategoryId
+		)
+		const selectedSubcategories = selectedCategory
+			? subCategories[selectedCategory.id] || []
+			: []
+
+		return (
+			<nav className='mobile-navbar'>
+				<div className='mobile-categories-scroll'>
+					{categories.map(category => (
+						<NavLink
+							to={`/catalog/${category.slug}`}
+							className={({ isActive: isNavLinkActive }) =>
+								`category-header ${
+									isNavLinkActive ||
+									isCategoryOrSubcategoryActive(category.slug, category.id)
+										? 'active'
+										: ''
+								}`
+							}
+							onClick={() => toggleCategory(category.id, category.slug)}
+						>
+							{category.title}
+						</NavLink>
+					))}
+				</div>
+
+				{selectedSubcategories.length > 0 && (
+					<div className='mobile-subcategories-scroll'>
+						{selectedSubcategories.map(subcategory => (
+							<NavLink
+								key={subcategory.id}
+								to={`/catalog/${subcategory.slug}`}
+								className={({ isActive }) =>
+									`mobile-subcategory-btn ${isActive ? 'active' : ''}`
+								}
+							>
+								{subcategory.title}
+							</NavLink>
+						))}
+					</div>
+				)}
+			</nav>
+		)
+	}
+
 	return (
 		<nav className='leftNavBar'>
 			{categories.length === 0 ? (
 				<div className='loading'>Категории не найдены</div>
 			) : (
-				categories.map(category => {
-					const categorySubcategories = subCategories[category.id] || []
-					const isOpen = isCategoryOpen(category.id)
+				<>
+					{categories.map(category => {
+						const categorySubcategories = subCategories[category.id] || []
+						const isOpen = isCategoryOpen(category.id)
 
-					return (
-						<div key={category.id} className='category-item'>
-							<NavLink
-								to={`/catalog/${category.slug}`}
-								className={({ isActive: isNavLinkActive }) =>
-									`category-header ${
-										isNavLinkActive ||
-										isCategoryOrSubcategoryActive(category.slug, category.id)
-											? 'active'
-											: ''
-									}`
-								}
-								onClick={() => toggleCategory(category.id, category.slug)}
-							>
-								<div className='category-name'>{category.title}</div>
-							</NavLink>
+						return (
+							<div key={category.id} className='category-item'>
+								<NavLink
+									to={`/catalog/${category.slug}`}
+									className={({ isActive: isNavLinkActive }) =>
+										`category-header ${
+											isNavLinkActive ||
+											isCategoryOrSubcategoryActive(category.slug, category.id)
+												? 'active'
+												: ''
+										}`
+									}
+									onClick={() => toggleCategory(category.id, category.slug)}
+								>
+									<div className='category-name'>{category.title}</div>
+								</NavLink>
 
-							{categorySubcategories.length > 0 && (
-								<div className={`subcategories-list ${isOpen ? 'open' : ''}`}>
-									{categorySubcategories.map(subcategory => (
-										<NavLink
-											key={subcategory.id}
-											to={`/catalog/${subcategory.slug}`}
-											className='subcategory-item'
-										>
-											{subcategory.title}
-										</NavLink>
-									))}
-								</div>
-							)}
-						</div>
-					)
-				})
+								{categorySubcategories.length > 0 && (
+									<div className={`subcategories-list ${isOpen ? 'open' : ''}`}>
+										{categorySubcategories.map(subcategory => (
+											<NavLink
+												key={subcategory.id}
+												to={`/catalog/${subcategory.slug}`}
+												className='subcategory-item'
+											>
+												{subcategory.title}
+											</NavLink>
+										))}
+									</div>
+								)}
+							</div>
+						)
+					})}
+				</>
 			)}
 		</nav>
 	)

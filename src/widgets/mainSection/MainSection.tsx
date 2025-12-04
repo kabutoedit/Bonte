@@ -11,13 +11,18 @@ export default function MainSection() {
 	const [currentSlide, setCurrentSlide] = useState<number>(0)
 	const [loading, setLoading] = useState<boolean>(true)
 	const [sliderData, setSliderData] = useState<SliderType[]>([])
+	const [isAnimating, setIsAnimating] = useState<boolean>(false)
 
 	const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
 	useEffect(() => {
 		if (sliderData.length > 0) {
 			intervalRef.current = setInterval(() => {
-				setCurrentSlide(prev => (prev + 1) % sliderData.length)
+				setIsAnimating(true)
+				setTimeout(() => {
+					setCurrentSlide(prev => (prev + 1) % sliderData.length)
+					setIsAnimating(false)
+				}, 300)
 			}, SLIDER_INTERVAL)
 		}
 
@@ -60,7 +65,7 @@ export default function MainSection() {
 
 	const currentItem = sliderData[currentSlide]
 
-	http: return (
+	return (
 		<section id='main' className='main-section'>
 			<div className='container'>
 				<div className='main-section__text'>
@@ -76,7 +81,13 @@ export default function MainSection() {
 				<div className='main-section__sliderBlock'>
 					{loading && <div className='loading'>Загрузка контента...</div>}
 
-					<div className='slider__content' key={currentItem.id}>
+					{/* Добавляем класс анимации */}
+					<div
+						className={`slider__content ${
+							isAnimating ? 'fade-out' : 'fade-in'
+						}`}
+						key={currentItem.id}
+					>
 						<div className='img'>
 							<img
 								src={`https://back-bonte.anti-flow.com` + currentItem.image}

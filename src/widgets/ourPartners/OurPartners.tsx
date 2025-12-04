@@ -54,6 +54,7 @@ export default function OurPartners() {
 	return (
 		<section className='our-partners'>
 			<h2>Наши партнёры</h2>
+			<span className='top-border'></span>
 
 			<div className='partners-track'>
 				{dataToShow.map(partner => (
@@ -81,6 +82,7 @@ export default function OurPartners() {
 					</div>
 				))}
 			</div>
+			<span className='bottom-border'></span>
 		</section>
 	)
 }

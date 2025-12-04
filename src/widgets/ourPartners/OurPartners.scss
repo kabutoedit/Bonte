@@ -1,4 +1,5 @@
 .our-partners {
+	position: relative;
 	width: 100%;
 	overflow: hidden;
 	margin-top: 133px;
@@ -16,6 +17,26 @@
 		text-align: center;
 	}
 
+	.top-border {
+		position: absolute;
+		top: 99;
+		left: 0;
+		width: 100%;
+		height: 1.3px;
+		background-color: #dadada;
+		z-index: 2;
+	}
+
+	.bottom-border {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 1.3px;
+		background-color: #dadada;
+		z-index: 2;
+	}
+
 	.container {
 		max-width: 1440px;
 		margin: 0 auto;
@@ -28,9 +49,6 @@
 		gap: 55px;
 		animation: scroll 30s linear infinite;
 		width: fit-content;
-		border: 1.3px solid #dadada;
-		border-right: none;
-		border-left: none;
 		align-items: center;
 		padding: 0 20px;
 

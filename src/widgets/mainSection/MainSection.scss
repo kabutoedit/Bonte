@@ -42,6 +42,7 @@
 		background-color: #fff;
 		padding: 25px;
 		position: relative;
+		overflow: hidden;
 
 		.slider__content {
 			animation: fadeIn 0.2s ease-in-out;
@@ -49,6 +50,14 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
+
+			&.fade-out {
+				animation: fadeOut 0.3s ease forwards;
+			}
+
+			&.fade-in {
+				animation: fadeIn 0.3s ease forwards;
+			}
 
 			.img {
 				width: 368px;
@@ -86,6 +95,23 @@
 				}
 			}
 		}
+	}
+}
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
 	}
 }
 
