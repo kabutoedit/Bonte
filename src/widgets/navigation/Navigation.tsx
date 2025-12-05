@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import './Navigation.scss'
 import axios from 'axios'
+import { NavLink } from 'react-router-dom'
 
 interface NavigationProps {
 	onLinkClick?: () => void
@@ -125,14 +126,14 @@ export default function Navigation({ onLinkClick, isMobile }: NavigationProps) {
 				ГЛАВНАЯ
 			</a>
 
-			<a
-				href={`/catalog/${categoryLink}`}
+			<NavLink
+				to={`/catalog/${categoryLink}`}
 				className={`navigation__link ${
 					activeLink === 'catalog' ? 'active' : ''
 				}`}
 			>
 				КАТАЛОГ
-			</a>
+			</NavLink>
 
 			<a
 				href='#about'
