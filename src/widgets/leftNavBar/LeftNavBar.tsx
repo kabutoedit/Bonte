@@ -40,7 +40,6 @@ export default function LeftNavBar() {
 	const location = useLocation()
 
 	const fetchCacheRef = useRef<Record<string, CachedPage>>({})
-	const latestRequestIdRef = useRef(0)
 	const isMountedRef = useRef(true)
 
 	useEffect(() => {
