@@ -62,29 +62,17 @@ export default function Navigation({ onLinkClick, isMobile }: NavigationProps) {
 	useEffect(() => {
 		if (!onMainPage) return
 
-		const handleScrollActive = () => {
-			const sections = ['main', 'catalog', 'about', 'contacts', 'contact-us']
-			const currentPosition = window.scrollY + 200
+		let ticking = false
 
-			for (const sectionId of sections) {
-				const element = document.getElementById(sectionId)
-				if (element) {
-					const { offsetTop, offsetHeight } = element
-					if (
-						currentPosition >= offsetTop &&
-						currentPosition < offsetTop + offsetHeight
-					) {
-						setActiveLink(sectionId)
-						break
-					}
-				}
+		const onScroll = () => {
+			if (!ticking) {
+				ticking = true
 			}
 		}
 
-		window.addEventListener('scroll', handleScrollActive, { passive: true })
-		handleScrollActive()
+		window.addEventListener('scroll', onScroll, { passive: true })
 
-		return () => window.removeEventListener('scroll', handleScrollActive)
+		return () => window.removeEventListener('scroll', onScroll)
 	}, [onMainPage])
 
 	useEffect(() => {
@@ -106,7 +94,6 @@ export default function Navigation({ onLinkClick, isMobile }: NavigationProps) {
 				const response = await axios.get(
 					'https://back-bonte.anti-flow.com/api/v1/catalog/'
 				)
-
 				setCategoryLink(response.data[0].slug)
 			} catch (error) {
 				console.error('Ошибка при получении данных:', error)
@@ -159,6 +146,8 @@ export default function Navigation({ onLinkClick, isMobile }: NavigationProps) {
 					className={`navigation__link ${
 						activeLink === 'contact-us' ? 'active' : ''
 					}`}
+					target='_blank'
+					rel='noopener noreferrer'
 				>
 					СВЯЗАТЬСЯ С НАМИ
 				</a>
