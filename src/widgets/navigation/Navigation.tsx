@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import './Navigation.scss'
+import axios from 'axios'
 
 interface NavigationProps {
 	onLinkClick?: () => void
@@ -27,6 +28,7 @@ export default function Navigation({ onLinkClick, isMobile }: NavigationProps) {
 	const onMainPage = location.pathname === '/'
 	const [activeLink, setActiveLink] = useState('')
 	const [mobileView, setIsMobile] = useState(false)
+	const [categoryLink, setCategoryLink] = useState<string>('')
 
 	const handleLinkClick = (
 		e: React.MouseEvent<HTMLAnchorElement>,
@@ -97,6 +99,22 @@ export default function Navigation({ onLinkClick, isMobile }: NavigationProps) {
 
 	const isMobileView = isMobile || mobileView
 
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const response = await axios.get(
+					'https://back-bonte.anti-flow.com/api/v1/catalog/'
+				)
+
+				setCategoryLink(response.data[0].slug)
+			} catch (error) {
+				console.error('Ошибка при получении данных:', error)
+			}
+		}
+
+		fetchData()
+	}, [])
+
 	return (
 		<nav className='navigation'>
 			<a
@@ -108,11 +126,10 @@ export default function Navigation({ onLinkClick, isMobile }: NavigationProps) {
 			</a>
 
 			<a
-				href='#catalog'
+				href={`/catalog/${categoryLink}`}
 				className={`navigation__link ${
 					activeLink === 'catalog' ? 'active' : ''
 				}`}
-				onClick={e => handleLinkClick(e, 'catalog')}
 			>
 				КАТАЛОГ
 			</a>
@@ -137,11 +154,10 @@ export default function Navigation({ onLinkClick, isMobile }: NavigationProps) {
 
 			{isMobileView && (
 				<a
-					href='#contact-us'
+					href='https://wa.me/+996999223395'
 					className={`navigation__link ${
 						activeLink === 'contact-us' ? 'active' : ''
 					}`}
-					onClick={e => handleLinkClick(e, 'contact-us')}
 				>
 					СВЯЗАТЬСЯ С НАМИ
 				</a>

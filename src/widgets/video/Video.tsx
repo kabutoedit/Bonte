@@ -6,7 +6,7 @@ export default function VideoBlock() {
 			<div className='container'>
 				<div className='video'>
 					<iframe
-						src='https://www.youtube.com/embed/ZSM3w1v-A_Y?si=jBncwEIsSvHKZUjX'
+						src='https://www.youtube.com/embed/racb1jJxigo'
 						title='Видео о компании'
 						allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
 						allowFullScreen

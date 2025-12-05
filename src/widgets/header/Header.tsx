@@ -66,7 +66,12 @@ export default function Header({ isHome }: { isHome: boolean }) {
 					{!isMobile ? (
 						<>
 							<Navigation />
-							<Button>СВЯЗАТЬСЯ С НАМИ</Button>
+							<a
+								href='https://wa.me/+996999223395'
+								style={{ textAlign: 'center' }}
+							>
+								<Button>СВЯЗАТЬСЯ С НАМИ</Button>
+							</a>
 						</>
 					) : (
 						<svg

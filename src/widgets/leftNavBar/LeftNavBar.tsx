@@ -45,7 +45,6 @@ export default function LeftNavBar() {
 					'https://back-bonte.anti-flow.com/api/v1/catalog/'
 				)
 				setCategories(response.data)
-				// Автоматически выбираем первую категорию при загрузке
 				if (response.data.length > 0) {
 					setSelectedCategoryId(response.data[0].id)
 				}
@@ -109,6 +108,7 @@ export default function LeftNavBar() {
 			const response = await axios.get(
 				`https://back-bonte.anti-flow.com/api/v1/catalog/page/${categorySlug}/`
 			)
+
 			setSubCategories(prev => ({
 				...prev,
 				[categoryId]: response.data.children || [],

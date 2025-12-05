@@ -15,7 +15,7 @@ export default function CatalogPage() {
 	const [data, setData] = useState<Data | null>(null)
 	const [loading, setLoading] = useState(true)
 
-	const [subCategoryData, setSubCategoryData] = useState<ProductsType[]>([])
+	const [subCategoryData, setSubCategoryData] = useState<ProductsType>()
 
 	useEffect(() => {
 		async function load() {
@@ -27,7 +27,7 @@ export default function CatalogPage() {
 
 				const res = await axios.get(url)
 				setData(res.data)
-				setSubCategoryData([res.data.category, ...res.data.children])
+				setSubCategoryData(res.data.category)
 			} catch (error) {
 				console.error('Ошибка загрузки:', error)
 			} finally {
@@ -41,7 +41,12 @@ export default function CatalogPage() {
 	if (loading) return <>Загрузка...</>
 
 	if (data && data.category && (data.category as any).parent !== null)
-		return <SubCategory products={subCategoryData} />
+		return (
+			<SubCategory
+				products={data.children}
+				subCategoryData={subCategoryData as ProductsType}
+			/>
+		)
 
 	if (data && data.category && (data.category as any).parent === null)
 		return <ProductsPage subCategories={data.children} />

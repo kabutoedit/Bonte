@@ -5,16 +5,18 @@ import Button from '../../shared/ui/Button'
 import './Products.scss'
 import Catalog404 from '../../widgets/catalog404/Catalog404'
 import { ProductsType } from '../../types'
+import { NavLink } from 'react-router-dom'
 
 type ProductsProps = {
-	products: ProductsType[]
+	products: ProductsType[] | null
+	subCategoryData: ProductsType
 }
 
-export default function Products({ products }: ProductsProps) {
+export default function Products({ products, subCategoryData }: ProductsProps) {
 	const [expanded, setExpanded] = useState(false)
-	const [mainSubCategory, setMainSubCategory] = useState(products[0])
+	const [mainSubCategory, setMainSubCategory] = useState(subCategoryData)
 
-	if (!products.length) {
+	if (!products && !subCategoryData) {
 		return <Catalog404 />
 	}
 
@@ -61,18 +63,21 @@ export default function Products({ products }: ProductsProps) {
 					)}
 
 					<div className='cardContainer'>
-						{products.map(product => (
-							<div
+						{products?.map(product => (
+							<NavLink
+								to={`/catalog/${product.slug}`}
 								style={{ cursor: 'pointer' }}
 								key={product.id}
 								onClick={() => setMainSubCategory(product)}
 							>
 								<ProductCard product={product} />
-							</div>
+							</NavLink>
 						))}
 					</div>
 
-					<Button>Заказать по WhatsApp</Button>
+					<a href='https://wa.me/+996999223395' style={{ textAlign: 'center' }}>
+						<Button>Заказать по WhatsApp</Button>
+					</a>
 				</div>
 			</div>
 		</div>

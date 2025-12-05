@@ -17,7 +17,9 @@ export default function AboutUs() {
 						условия для стабильного роста, развития и устойчивого будущего
 						пищевой промышленности.
 					</span>
-					<Button>СВЯЗАТЬСЯ С НАМИ</Button>
+					<a href='https://wa.me/+996999223395' style={{ textAlign: 'center' }}>
+						<Button>СВЯЗАТЬСЯ С НАМИ</Button>
+					</a>
 				</div>
 				<div className='img'>
 					<img src='/images/aboutUs.jpg' alt='О нас' />
