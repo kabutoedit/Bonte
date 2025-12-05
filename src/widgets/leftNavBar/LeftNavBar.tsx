@@ -84,7 +84,6 @@ export default function LeftNavBar() {
 
 	const fetchPage = async (slug: string): Promise<CachedPage> => {
 		if (fetchCacheRef.current[slug]) return fetchCacheRef.current[slug]
-		const requestId = ++latestRequestIdRef.current
 		try {
 			const response = await axios.get(
 				`https://back-bonte.anti-flow.com/api/v1/catalog/page/${slug}/`
