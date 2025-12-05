@@ -19,7 +19,10 @@ export default function SubCategory({ subCategories }: SubCategoryProps) {
 				<LeftNavbar />
 
 				<div className='subCategory'>
-					<div className='cardContainer'>
+					<div
+						style={subCategories.length <= 0 ? { display: 'none' } : {}}
+						className='cardContainer'
+					>
 						{subCategories.map(subCategory => (
 							<NavLink
 								to={`/catalog/${subCategory.slug}`}
@@ -30,8 +33,9 @@ export default function SubCategory({ subCategories }: SubCategoryProps) {
 							</NavLink>
 						))}
 					</div>
-
-					<Button>Заказать по WhatsApp</Button>
+					<a href='https://wa.me/+996999223395' style={{ textAlign: 'center' }}>
+						<Button>Заказать по WhatsApp</Button>
+					</a>
 				</div>
 			</div>
 		</div>

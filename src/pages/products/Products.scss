@@ -57,7 +57,6 @@
 
 	.subCategory {
 		min-height: 100vh;
-		height: 100%;
 		margin-top: 189px;
 		margin-bottom: 81px;
 
@@ -74,6 +73,66 @@
 			margin: 0 auto;
 			margin-top: 50px;
 			display: block;
+		}
+	}
+}
+
+@media (max-width: 450px) {
+	.containerCatalog {
+		flex-direction: column;
+		.subCategory {
+			height: auto;
+			min-height: auto;
+			width: 100%;
+			margin-top: 25px;
+
+			.bigCard {
+				height: auto;
+				min-height: auto;
+				width: 308px;
+				margin: 0 auto;
+				flex-direction: column;
+
+				.textBlock {
+					width: auto;
+					margin-bottom: 40px;
+
+					h2 {
+						font-size: 28px;
+						line-height: 29.09px;
+						margin-bottom: 15px;
+					}
+
+					p {
+						font-weight: 300;
+						font-size: 14px;
+						line-height: 20px;
+					}
+				}
+
+				.img {
+					display: none;
+				}
+			}
+		}
+
+		.cardContainer {
+			width: auto;
+			margin: 0;
+
+			a {
+				margin: 0 auto;
+			}
+		}
+
+		Button {
+			width: 246px !important;
+			height: 47px !important;
+			border-radius: 8px;
+
+			font-weight: 500;
+			font-size: 14px;
+			line-height: 160%;
 		}
 	}
 }

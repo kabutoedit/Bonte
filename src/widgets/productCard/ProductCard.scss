@@ -79,3 +79,11 @@
 		}
 	}
 }
+
+@media (max-width: 450px) {
+	.productCard {
+		width: 320px;
+		border-radius: 7px;
+		border-width: 0.53px;
+	}
+}

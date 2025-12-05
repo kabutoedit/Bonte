@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import LeftNavbar from '../../widgets/leftNavBar/LeftNavBar'
 import ProductCard from '../../widgets/productCard/ProductCard'
 import Button from '../../shared/ui/Button'
@@ -19,6 +19,12 @@ export default function Products({ products, subCategoryData }: ProductsProps) {
 	if (!products && !subCategoryData) {
 		return <Catalog404 />
 	}
+
+	useEffect(() => {
+		if (products?.length === 0) {
+			setExpanded(true)
+		}
+	}, [products])
 
 	return (
 		<div className='subCategoryBlock'>
@@ -62,7 +68,10 @@ export default function Products({ products, subCategoryData }: ProductsProps) {
 						</div>
 					)}
 
-					<div className='cardContainer'>
+					<div
+						style={!products ? { display: 'none' } : {}}
+						className='cardContainer'
+					>
 						{products?.map(product => (
 							<NavLink
 								to={`/catalog/${product.slug}`}
@@ -74,7 +83,6 @@ export default function Products({ products, subCategoryData }: ProductsProps) {
 							</NavLink>
 						))}
 					</div>
-
 					<a href='https://wa.me/+996999223395' style={{ textAlign: 'center' }}>
 						<Button>Заказать по WhatsApp</Button>
 					</a>
