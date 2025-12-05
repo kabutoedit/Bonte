@@ -81,7 +81,6 @@ export default function MainSection() {
 				<div className='main-section__sliderBlock'>
 					{loading && <div className='loading'>Загрузка контента...</div>}
 
-					{/* Добавляем класс анимации */}
 					<div
 						className={`slider__content ${
 							isAnimating ? 'fade-out' : 'fade-in'
