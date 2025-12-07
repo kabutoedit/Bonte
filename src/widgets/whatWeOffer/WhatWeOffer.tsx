@@ -1,68 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './WhatWeOffer.scss'
+import axios from 'axios'
 
 interface OfferBlock {
 	id: number
 	title: string
 	description: string
-	size: 'medium' | 'little' | 'big'
-	styleClass: string
-}
-
-const fetchOffersData = async (): Promise<OfferBlock[]> => {
-	await new Promise(resolve => setTimeout(resolve, 300))
-
-	return [
-		{
-			id: 1,
-			title: 'Молочная продукция',
-			description:
-				'Стабилизаторы, закваски, ароматизаторы и другие ингредиенты для молочной продукции.',
-			size: 'medium',
-			styleClass: 'first',
-		},
-		{
-			id: 2,
-			title: 'Horeca',
-			description:
-				'Ингредиенты для ресторанов, кафе и отелей: качественное сырьё для стабильных блюд.',
-			size: 'little',
-			styleClass: 'first',
-		},
-		{
-			id: 3,
-			title: 'Пищевая химия',
-			description:
-				'Сорбат калия, фосфомикс и другие добавки для безопасности и стабильности продукции.',
-			size: 'little',
-			styleClass: 'second',
-		},
-		{
-			id: 4,
-			title: 'Кондитерские изделия',
-			description:
-				'Какао-продукты, наполнители, стабилизаторы и другое сырьё для кондитерского производства.',
-			size: 'medium',
-			styleClass: 'second',
-		},
-		{
-			id: 5,
-			title: 'Хлебобулочные продукты',
-			description:
-				'Улучшители, закваски, ферментные комплексы и добавки для хлебопекарной продукции.',
-			size: 'big',
-			styleClass: 'first',
-		},
-		{
-			id: 6,
-			title: 'Специализированные жиры',
-			description:
-				'Кондитерские, хлебопекарные и фритюрные жиры с отличными технологическими свойствами.',
-			size: 'big',
-			styleClass: 'second',
-		},
-	]
+	image: string
+	slug: string
 }
 
 export default function WhatWeOffer() {
@@ -70,13 +16,19 @@ export default function WhatWeOffer() {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		const loadData = async () => {
-			setLoading(true)
-			const data = await fetchOffersData()
-			setOffers(data)
-			setLoading(false)
+		async function fetchData() {
+			try {
+				const response = await axios.get(
+					'https://back-bonte.anti-flow.com/api/v1/landing/info/'
+				)
+				setOffers(response.data.grid_category || [])
+			} catch (error) {
+				console.error('Ошибка при получении данных:', error)
+			} finally {
+				setLoading(false)
+			}
 		}
-		loadData()
+		fetchData()
 	}, [])
 
 	if (loading) {
@@ -90,13 +42,9 @@ export default function WhatWeOffer() {
 		)
 	}
 
-	const mediumAndLittleBlocks = offers.filter(
-		o => o.size === 'medium' || o.size === 'little'
-	)
-	const bigBlocks = offers.filter(o => o.size === 'big')
-
-	const littleBlocks = mediumAndLittleBlocks.filter(o => o.size === 'little')
-	const mediumBlocks = mediumAndLittleBlocks.filter(o => o.size === 'medium')
+	const firstRow = offers.slice(0, 2)
+	const secondRow = offers.slice(2, 4)
+	const thirdRow = offers.slice(4)
 
 	return (
 		<section id='catalog' className='what-we-offer'>
@@ -104,24 +52,29 @@ export default function WhatWeOffer() {
 				<h2>Что мы вам предлагаем?</h2>
 				<div className='content'>
 					<div className='up-block'>
-						{mediumBlocks[0] && (
+						{firstRow[0] && (
 							<Link
-								key={mediumBlocks[0].id}
-								to={'/category/:categoryId'}
-								className={`medium-offer-block ${mediumBlocks[0].styleClass}`}
+								to={`/catalog/${firstRow[0].slug}`}
+								className='medium-offer-block'
+								style={{
+									backgroundImage: `url(https://back-bonte.anti-flow.com${firstRow[0].image})`,
+								}}
 							>
 								<div className='blur'></div>
-								<h5>{mediumBlocks[0].title}</h5>
-								<p>{mediumBlocks[0].description}</p>
+								<h5>{firstRow[0].title}</h5>
+								<p>{firstRow[0].description}</p>
 							</Link>
 						)}
 
 						<div className='two-little-blocks'>
-							{littleBlocks.map(block => (
+							{secondRow.map(block => (
 								<Link
 									key={block.id}
-									to={'/category/:categoryId'}
-									className={`little-offer-block ${block.styleClass}`}
+									to={`/catalog/${block.slug}`}
+									className='little-offer-block'
+									style={{
+										backgroundImage: `url(https://back-bonte.anti-flow.com${block.image})`,
+									}}
 								>
 									<div className='blur'></div>
 									<h5>{block.title}</h5>
@@ -130,31 +83,40 @@ export default function WhatWeOffer() {
 							))}
 						</div>
 
-						{mediumBlocks[1] && (
+						{firstRow[1] && (
 							<Link
-								key={mediumBlocks[1].id}
-								to={'/category/:categoryId'}
-								className={`medium-offer-block ${mediumBlocks[1].styleClass}`}
+								to={`/catalog/${firstRow[1].slug}`}
+								className='medium-offer-block'
+								style={{
+									backgroundImage: `url(https://back-bonte.anti-flow.com${firstRow[1].image})`,
+								}}
 							>
 								<div className='blur'></div>
-								<h5>{mediumBlocks[1].title}</h5>
-								<p>{mediumBlocks[1].description}</p>
+								<h5>{firstRow[1].title}</h5>
+								<p>{firstRow[1].description}</p>
 							</Link>
 						)}
 					</div>
 
 					<div className='down-block'>
-						{bigBlocks.map(block => (
-							<Link
-								key={block.id}
-								to={'/category/:categoryId'}
-								className={`big-offer-block ${block.styleClass}`}
-							>
-								<div className='blur'></div>
-								<h5>{block.title}</h5>
-								<p>{block.description}</p>
-							</Link>
-						))}
+						{thirdRow.map(block => {
+							const isBig = thirdRow.length <= 2
+
+							return (
+								<Link
+									key={block.id}
+									to={`/catalog/${block.slug}`}
+									className={isBig ? 'big-offer-block' : 'medium-offer-block'}
+									style={{
+										backgroundImage: `url(https://back-bonte.anti-flow.com${block.image})`,
+									}}
+								>
+									<div className='blur'></div>
+									<h5>{block.title}</h5>
+									<p>{block.description}</p>
+								</Link>
+							)
+						})}
 					</div>
 				</div>
 			</div>

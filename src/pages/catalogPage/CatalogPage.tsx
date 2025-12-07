@@ -4,6 +4,7 @@ import axios from 'axios'
 import SubCategory from '../products/Products'
 import ProductsPage from '../subCategory./SubCategory'
 import { ProductsType } from '../../types'
+import Catalog404 from '../../widgets/catalog404/Catalog404'
 
 interface Data {
 	children: ProductsType[]
@@ -14,6 +15,7 @@ export default function CatalogPage() {
 	const { slug } = useParams()
 	const [data, setData] = useState<Data | null>(null)
 	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState<any>(null)
 
 	const [subCategoryData, setSubCategoryData] = useState<ProductsType>()
 
@@ -29,7 +31,7 @@ export default function CatalogPage() {
 				setData(res.data)
 				setSubCategoryData(res.data.category)
 			} catch (error) {
-				console.error('Ошибка загрузки:', error)
+				setError(error)
 			} finally {
 				setLoading(false)
 			}
@@ -39,6 +41,7 @@ export default function CatalogPage() {
 	}, [slug])
 
 	if (loading) return <>Загрузка...</>
+	if (error) return <Catalog404 />
 
 	if (data && data.category && (data.category as any).parent !== null)
 		return (

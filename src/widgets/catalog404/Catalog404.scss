@@ -63,3 +63,30 @@
 .categoryPage {
 	display: flex;
 }
+
+@media (max-width: 450px) {
+	.Catalog404 {
+		width: 100vw;
+		min-width: 100vw;
+		.text {
+			width: auto;
+			margin-top: 95px;
+
+			h3 {
+				font-size: 23px;
+				line-height: 33px;
+			}
+
+			p {
+				font-size: 17px;
+				line-height: 30px;
+			}
+		}
+
+		.img {
+			width: 100%;
+			height: 215px;
+			margin-bottom: 105px;
+		}
+	}
+}
