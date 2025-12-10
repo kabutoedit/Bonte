@@ -52,16 +52,16 @@ export default function QualityPartners() {
 	}
 
 	return (
-		<section className='our-partners'>
+		<section className='QualityPartners'>
 			<div className='container'>
 				<h2>Поставляем сырье для компаний, которым не все равно на качество</h2>
 
 				<span className='top-border'></span>
 
 				<div className='partners-track'>
-					{dataToShow.map(partner => (
+					{dataToShow.map((partner, index) => (
 						<div
-							key={partner.id}
+							key={index}
 							style={{
 								flexShrink: 0,
 								width: '200px',
