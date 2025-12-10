@@ -10,17 +10,19 @@
 		margin-top: 180px;
 	}
 
-	.medium-offer-block,
-	.little-offer-block,
-	.big-offer-block {
+	.offerBlock {
 		position: relative;
-		display: block;
+		display: flex;
+		justify-content: end;
+		flex-direction: column;
+		padding: 20px;
 		border-radius: 10px;
 		background-position: center;
-		background-repeat: no-repeat;
 		background-size: cover;
 		overflow: hidden;
-		text-decoration: none;
+
+		width: 420px;
+		height: 396px;
 
 		h5,
 		p {
@@ -45,33 +47,6 @@
 		}
 	}
 
-	.medium-offer-block {
-		width: 420px;
-		height: 396px;
-		padding: 0 22px 25px 23px;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
-	}
-
-	.little-offer-block {
-		width: 434px;
-		height: 218px;
-		padding: 0 15px 15px 15px;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
-	}
-
-	.big-offer-block {
-		width: 635px;
-		height: 396px;
-		padding: 0 25px 25px 25px;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
-	}
-
 	h5 {
 		font-family: 'Playfair Display', sans-serif;
 		font-weight: 700;
@@ -92,28 +67,11 @@
 	}
 
 	.content {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
 		margin-top: 45px;
-
-		.up-block {
-			display: flex;
-			gap: 10px;
-			height: 396px;
-			justify-content: center;
-
-			.two-little-blocks {
-				display: flex;
-				flex-direction: column;
-				gap: 10px;
-			}
-		}
-
-		.down-block {
-			display: flex;
-			gap: 10px;
-			margin-top: 10px;
-			justify-content: center;
-			flex-wrap: wrap;
-		}
+		height: 802px;
+		gap: 10px;
 	}
 }
 
@@ -134,19 +92,8 @@
 		}
 		.content {
 			margin-top: 30px;
-			.up-block {
-				height: auto;
-				flex-direction: column;
-			}
 
-			.down-block {
-				height: auto;
-				flex-direction: column;
-			}
-
-			.big-offer-block,
-			.little-offer-block,
-			.medium-offer-block {
+			.offerBlock {
 				width: 307px;
 				height: 289px;
 				padding: 0 15px 15px 15px;

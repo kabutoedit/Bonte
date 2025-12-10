@@ -1,7 +1,6 @@
 import AboutUs from '../../widgets/aboutUs/AboutUs'
 import Footer from '../../widgets/footer/Footer'
 import MainSection from '../../widgets/mainSection/MainSection'
-import OurPartners from '../../widgets/ourPartners/OurPartners'
 import OurStatistics from '../../widgets/ourStatistics/OurStatistics'
 import QualityPartners from '../../widgets/qualityPartners/QualityPartners'
 import Video from '../../widgets/video/Video'
@@ -35,7 +34,6 @@ export default function Home() {
 			<MainSection />
 			<WhatWeOffer />
 			<AboutUs />
-			<OurPartners />
 			<Video />
 			<OurStatistics />
 			<QualityPartners />
