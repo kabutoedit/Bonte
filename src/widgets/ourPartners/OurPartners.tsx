@@ -1,5 +1,5 @@
 import './OurPartners.scss'
-import axios from 'axios'
+import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 
 interface Partner {
@@ -9,11 +9,28 @@ interface Partner {
 	slug?: string
 }
 
-export default function OurPartners() {
-	const [sliderData, setSliderData] = useState<Partner[]>([])
-	const [loading, setLoading] = useState(true)
+const fetchPartners = async (): Promise<Partner[]> => {
+	const response = await fetch(
+		'https://back-bonte.anti-flow.com/api/v1/partner/carousel/'
+	)
+	if (!response.ok) {
+		throw new Error('Ошибка при загрузке партнеров')
+	}
+	return response.json()
+}
 
+export default function OurPartners() {
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+	const {
+		data: sliderData = [],
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ['partners'],
+		queryFn: fetchPartners,
+		staleTime: 10 * 60 * 1000,
+	})
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -30,27 +47,14 @@ export default function OurPartners() {
 	const dataToShow =
 		windowWidth > 1400 ? [...sliderData, ...sliderData] : sliderData
 
-	useEffect(() => {
-		async function fetchData() {
-			try {
-				const response = await axios.get(
-					'https://back-bonte.anti-flow.com/api/v1/partner/carousel/'
-				)
-
-				setSliderData(response.data)
-			} catch (error) {
-				console.error('Ошибка при получении данных:', error)
-			} finally {
-				setLoading(false)
-			}
-		}
-
-		fetchData()
-	}, [])
-
-	if (loading) {
+	if (isLoading) {
 		return <div className='loading'>Загрузка партнеров...</div>
 	}
+
+	if (error) {
+		return <div className='error'>Ошибка загрузки данных</div>
+	}
+
 	return (
 		<section className='our-partners'>
 			<h2>Наши партнёры</h2>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import './WhatWeOffer.scss'
 import axios from 'axios'
@@ -11,27 +11,21 @@ interface OfferBlock {
 	slug: string
 }
 
+const fetchOffers = async (): Promise<OfferBlock[]> => {
+	const response = await axios.get(
+		'https://back-bonte.anti-flow.com/api/v1/landing/info/'
+	)
+	return response.data.grid_category || []
+}
+
 export default function WhatWeOffer() {
-	const [offers, setOffers] = useState<OfferBlock[]>([])
-	const [loading, setLoading] = useState(true)
+	const { data: offers = [], isLoading } = useQuery({
+		queryKey: ['offers'],
+		queryFn: fetchOffers,
+		staleTime: 10 * 60 * 1000,
+	})
 
-	useEffect(() => {
-		async function fetchData() {
-			try {
-				const response = await axios.get(
-					'https://back-bonte.anti-flow.com/api/v1/landing/info/'
-				)
-				setOffers(response.data.grid_category || [])
-			} catch (error) {
-				console.error('Ошибка при получении данных:', error)
-			} finally {
-				setLoading(false)
-			}
-		}
-		fetchData()
-	}, [])
-
-	if (loading) {
+	if (isLoading) {
 		return (
 			<section id='catalog' className='what-we-offer loading-state'>
 				<div className='container'>

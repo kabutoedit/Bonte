@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import './QualityPartners.scss'
-import axios from 'axios'
 
 interface Partner {
 	id: number
@@ -9,11 +9,28 @@ interface Partner {
 	logo: string
 }
 
-export default function QualityPartners() {
-	const [partners, setPartners] = useState<Partner[]>([])
-	const [loading, setLoading] = useState(true)
+const fetchQualityPartners = async (): Promise<Partner[]> => {
+	const response = await fetch(
+		'https://back-bonte.anti-flow.com/api/v1/client/carousel/'
+	)
+	if (!response.ok) {
+		throw new Error('Ошибка при загрузке партнеров')
+	}
+	return response.json()
+}
 
+export default function QualityPartners() {
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+	const {
+		data: partners = [],
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ['qualityPartners'],
+		queryFn: fetchQualityPartners,
+		staleTime: 10 * 60 * 1000,
+	})
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -29,26 +46,12 @@ export default function QualityPartners() {
 
 	const dataToShow = windowWidth > 1400 ? [...partners, ...partners] : partners
 
-	useEffect(() => {
-		async function fetchData() {
-			try {
-				const response = await axios.get(
-					'https://back-bonte.anti-flow.com/api/v1/client/carousel/'
-				)
-
-				setPartners(response.data)
-			} catch (error) {
-				console.error('Ошибка при получении данных:', error)
-			} finally {
-				setLoading(false)
-			}
-		}
-
-		fetchData()
-	}, [])
-
-	if (loading) {
+	if (isLoading) {
 		return <div className='loading'>Загрузка партнеров...</div>
+	}
+
+	if (error) {
+		return <div className='loading'>Ошибка загрузки данных</div>
 	}
 
 	return (
@@ -61,7 +64,7 @@ export default function QualityPartners() {
 				<div className='partners-track'>
 					{dataToShow.map((partner, index) => (
 						<div
-							key={index}
+							key={`${partner.id}-${index}`}
 							style={{
 								flexShrink: 0,
 								width: '200px',

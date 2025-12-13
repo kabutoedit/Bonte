@@ -2,46 +2,47 @@ import Map from '../map/Map'
 import Navigation from '../navigation/Navigation'
 import './Footer.scss'
 import { EmailType, ContactType } from '../../types'
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
+interface FooterResponse {
+	WorkTime: string
+	email_contact: EmailType[]
+	phone_contact: ContactType[]
+	address: {
+		latitude: number
+		longitude: number
+		title: string
+	}
+}
+
 export default function Footer() {
-	const [loading, setLoading] = useState<boolean>(true)
-	const [workTime, setWorkTime] = useState<string>('')
-	const [phoneNumber, setPhoneNumber] = useState<ContactType[]>([])
-	const [email, setEmail] = useState<EmailType[]>([])
+	const { data, isLoading, isError } = useQuery<FooterResponse>({
+		queryKey: ['footerData'],
+		queryFn: async () => {
+			const response = await axios.get<FooterResponse>(
+				'https://back-bonte.anti-flow.com/api/v1/landing/info/'
+			)
+			return response.data
+		},
+		staleTime: 10 * 60 * 1000,
+	})
 
-	const [latitude, setLatitude] = useState<number | null>(null)
-	const [longitude, setLongitude] = useState<number | null>(null)
-	const [address, setAddress] = useState<string>('')
-
-	useEffect(() => {
-		async function fetchData() {
-			try {
-				const response = await axios.get(
-					'https://back-bonte.anti-flow.com/api/v1/landing/info/'
-				)
-
-				setWorkTime(response.data.WorkTime || '')
-				setEmail(response.data.email_contact || [])
-				setPhoneNumber(response.data.phone_contact || [])
-
-				setLatitude(response.data.address.latitude || null)
-				setLongitude(response.data.address.longitude || null)
-				setAddress(response.data.address.title || 'Адрес не указан')
-			} catch (error) {
-				console.error('Ошибка при получении данных:', error)
-			} finally {
-				setLoading(false)
-			}
-		}
-
-		fetchData()
-	}, [])
-
-	if (loading) {
+	if (isLoading) {
 		return <div className='loading'>Загрузка данных...</div>
 	}
+
+	if (isError || !data) {
+		console.error('Ошибка при получении данных футера')
+		return <div className='error'>Ошибка загрузки данных</div>
+	}
+
+	const workTime = data.WorkTime || ''
+	const email = data.email_contact || []
+	const phoneNumber = data.phone_contact || []
+	const latitude = data.address?.latitude || null
+	const longitude = data.address?.longitude || null
+	const address = data.address?.title || 'Адрес не указан'
 
 	return (
 		<footer id='contacts' className='Footer'>
@@ -78,9 +79,9 @@ export default function Footer() {
 					<div className='connect'>
 						<h6>СВЯЗАТЬСЯ С НАМИ</h6>
 						<div className='numbers'>
-							{phoneNumber.map(item => {
-								return <p key={item.id}>{item.title}</p>
-							})}
+							{phoneNumber.map(item => (
+								<p key={item.id}>{item.title}</p>
+							))}
 						</div>
 						{email.map(item => (
 							<p key={item.id}>Почта: {item.email}</p>

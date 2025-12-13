@@ -1,10 +1,22 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Home from './pages/home/Home'
 import CatalogPage from './pages/catalogPage/CatalogPage'
 import Header from './widgets/header/Header'
 import Page404 from './pages/page404/Page404'
 
-export default function App() {
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			staleTime: 5 * 60 * 1000,
+			gcTime: 10 * 60 * 1000,
+			refetchOnWindowFocus: false,
+			retry: 1,
+		},
+	},
+})
+
+function RouterWithHeader() {
 	function HeaderWrapper() {
 		const location = useLocation()
 
@@ -26,7 +38,7 @@ export default function App() {
 	}
 
 	return (
-		<BrowserRouter>
+		<>
 			<HeaderWrapper />
 			<Routes>
 				<Route path='/' element={<Home />} />
@@ -34,6 +46,16 @@ export default function App() {
 				<Route path='/catalog/:slug' element={<CatalogPage />} />
 				<Route path='*' element={<Page404 />} />
 			</Routes>
-		</BrowserRouter>
+		</>
+	)
+}
+
+export default function App() {
+	return (
+		<QueryClientProvider client={queryClient}>
+			<BrowserRouter>
+				<RouterWithHeader />
+			</BrowserRouter>
+		</QueryClientProvider>
 	)
 }
