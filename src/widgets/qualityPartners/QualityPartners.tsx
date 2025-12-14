@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 import './QualityPartners.scss'
 
 interface Partner {
@@ -10,13 +11,13 @@ interface Partner {
 }
 
 const fetchQualityPartners = async (): Promise<Partner[]> => {
-	const response = await fetch(
+	const response = await axios.get(
 		'https://back-bonte.anti-flow.com/api/v1/client/carousel/'
 	)
-	if (!response.ok) {
+	if (!response.data) {
 		throw new Error('Ошибка при загрузке партнеров')
 	}
-	return response.json()
+	return response.data
 }
 
 export default function QualityPartners() {
@@ -57,7 +58,7 @@ export default function QualityPartners() {
 	return (
 		<section className='QualityPartners'>
 			<div className='container'>
-				<h2>Поставляем сырье для компаний, которым не все равно на качество</h2>
+				<h2>Поставляем сырье для компаний, которым важно качество</h2>
 
 				<span className='top-border'></span>
 

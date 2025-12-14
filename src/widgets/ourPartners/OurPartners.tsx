@@ -1,6 +1,7 @@
 import './OurPartners.scss'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 interface Partner {
 	id: number
@@ -10,13 +11,13 @@ interface Partner {
 }
 
 const fetchPartners = async (): Promise<Partner[]> => {
-	const response = await fetch(
+	const response = await axios.get(
 		'https://back-bonte.anti-flow.com/api/v1/partner/carousel/'
 	)
-	if (!response.ok) {
+	if (!response.data) {
 		throw new Error('Ошибка при загрузке партнеров')
 	}
-	return response.json()
+	return response.data
 }
 
 export default function OurPartners() {
